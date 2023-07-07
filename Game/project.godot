@@ -8,6 +8,28 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "StatsGen",
+"class": "StatsEnemy",
+"language": "GDScript",
+"path": "res://Src/StatsEnemy.gd"
+}, {
+"base": "Node",
+"class": "StatsGen",
+"language": "GDScript",
+"path": "res://Src/StatsGen.gd"
+}, {
+"base": "StatsGen",
+"class": "StatsHero",
+"language": "GDScript",
+"path": "res://Src/StatsHero.gd"
+} ]
+_global_script_class_icons={
+"StatsEnemy": "",
+"StatsGen": "",
+"StatsHero": ""
+}
+
 [application]
 
 config/name="Game"
