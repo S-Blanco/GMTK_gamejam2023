@@ -22,4 +22,8 @@
 
 ## Crowd of zombies
 
-- 
+- You control a crowd of caterer zombies that wants to gather human survivors and bring them to the location of a zombie party.
+
+## Corrupted inspector
+
+- You control a corrupted inspector that has to rmeove (evident) indices from a scene of crime / that has to plan the perfect crime/ 
