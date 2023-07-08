@@ -35,5 +35,9 @@ func _process(delta):
 		New_enemy.set_global_position(Vector2(spawn_position,spawn_y))
 		New_enemy.pixel_speed=curr_pixel_speed
 		add_child(New_enemy)
+
+	GlobalVariables.distance += delta*base_pixel_speed
+
 	for _i in self.get_children():
 		print(_i)
+
