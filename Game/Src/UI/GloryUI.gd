@@ -1,17 +1,21 @@
 extends Control
 
 
-var glory = 0.03 setget set_glory
-var max_glory = 0.5 
-
-
 onready var full = $Full
 onready var filling = $Filling 
+var max_glory
+
+func _ready():
+	max_glory = full.rect_scale.x 
+	print(max_glory)
 
 func set_glory(value):
-	glory = clamp(value, 0.03, max_glory)
+	GlobalVariables.glory = clamp(value, 0, max_glory)
 	if filling != null:
 		filling.rect_scale.x = value
+		
+	
+			
 		
 
 

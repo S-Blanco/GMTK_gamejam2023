@@ -24,8 +24,22 @@ var curr_pixel_speed
 var curr_scroll_speed
 var init_child_num
 
+# For the power ups, 0 means empty
+# number from 1 to 9 will be associated
+# with a unique power up/down
+var power_slots = [0,0]
+
+onready var player_controls = $PlayerControls
+onready var power1_toggle = $Power1Toggle
+onready var power2_toggle = $Power2Toggle
+
+
+# onready var testt = get_node("res://Src/UI/PlayerControls.tscn")
+# testt.connect("power1",self,_on_power1)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+
 	base_scroll_speed = Bckgnd.scroll_speed
 	base_pixel_speed = base_scroll_speed*Bckgnd.texture.get_size().x
 	curr_pixel_speed = base_pixel_speed
@@ -33,14 +47,17 @@ func _ready():
 	init_child_num = len(self.get_children())
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var New_enemy
 	var children
 	var closest_enemy
 	var NMX
-	scrollDist += delta*base_pixel_speed
+	
+  scrollDist += delta*base_pixel_speed
+  GlobalVariables.distance = scrollDist
+  
+# Enemy spawn
 #	print(scrollDist,' ',fmod(scrollDist,spawn_position),' ',delta*curr_pixel_speed,' ',spawn_position-delta*curr_pixel_speed)
 	if (spawn_position-delta*curr_pixel_speed<fmod(scrollDist,spawn_position)) || (fmod(scrollDist,spawn_position)<delta*curr_pixel_speed):
 #		print('should spawn',' ',fmod(scrollDist,spawn_position))
@@ -48,6 +65,8 @@ func _process(delta):
 		New_enemy.set_global_position(Vector2(spawn_position,spawn_y))
 		New_enemy.pixel_speed=curr_pixel_speed
 		add_child(New_enemy)
+    
+# Slowing down process
 	children = self.get_children()
 	if len(children)>init_child_num:
 		closest_enemy = children[init_child_num]
@@ -83,3 +102,22 @@ func woah_there(children,bckgnd):
 		children[i].pixel_speed = 0.0
 	charPlayer.stop()
 	pass
+	
+  
+func _on_PlayerControls_power1():
+	if power_slots[0]==0:
+		power1_toggle.change_to_filled_texture()
+		power_slots[0]=1
+	else:
+		power1_toggle.change_to_empty_texture()
+		power_slots[0] = 0
+	
+	
+func _on_PlayerControls_power2():
+	if power_slots[1]==0:
+		power2_toggle.change_to_filled_texture()
+		power_slots[1]=1
+	else:
+		power2_toggle.change_to_empty_texture()
+		power_slots[1] = 0
+

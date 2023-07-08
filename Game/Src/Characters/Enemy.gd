@@ -30,4 +30,6 @@ func kill():
 	pass
 
 func _on_Visibility_screen_exited():
+	GlobalVariables.glory = GlobalVariables.glory + 0.03
+	GlobalVariables.damage += 0.03
 	queue_free() # Replace with function body.

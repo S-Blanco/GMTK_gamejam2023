@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Src/Characters/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Characters/Enemies/Blob.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 340.212
 
 [node name="Enemy" type="KinematicBody2D"]
 scale = Vector2( 0.5, 0.5 )
@@ -11,5 +14,9 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="Visibility" type="VisibilityNotifier2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -8, -14 )
+shape = SubResource( 1 )
 
 [connection signal="screen_exited" from="Visibility" to="." method="_on_Visibility_screen_exited"]
