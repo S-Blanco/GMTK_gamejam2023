@@ -13,7 +13,6 @@ onready var stats = $StatsEnemy
 func _ready():
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	move_and_slide(Vector2(-pixel_speed,0))
@@ -29,7 +28,6 @@ func die():
 func kill():
 #	update_glory(self.glory_malus)
 	pass
-
 
 func _on_Visibility_screen_exited():
 	GlobalVariables.glory = GlobalVariables.glory + 0.03
