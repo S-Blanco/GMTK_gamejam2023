@@ -16,10 +16,10 @@ var base_scroll_speed
 var base_pixel_speed
 var curr_pixel_speed
 
-# For the power ups, 0 means nothing
+# For the power ups, 0 means empty
 # number from 1 to 9 will be associated
 # with a unique power up/down
-var power_slots = [1,0]
+var power_slots = [0,0]
 
 onready var player_controls = $PlayerControls
 onready var power1_toggle = $Power1Toggle
@@ -48,7 +48,7 @@ func _process(delta):
 		New_enemy.set_global_position(Vector2(spawn_position,spawn_y))
 		New_enemy.pixel_speed=curr_pixel_speed
 		add_child(New_enemy)
-  GlobalVariables.distance += delta*base_pixel_speed
+	GlobalVariables.distance += delta*base_pixel_speed
   
 func _on_PlayerControls_power1():
 	if power_slots[0]==0:
