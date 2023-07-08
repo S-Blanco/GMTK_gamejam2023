@@ -2,7 +2,7 @@ extends Node
 
 class_name StatsGen
 
-export var max_health = 1
+export var max_health = 0.2
 export var strength = 10
 export var defense = 5
 
