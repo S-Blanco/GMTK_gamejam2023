@@ -9,7 +9,7 @@ onready var Bckgnd = $Background/TextureRect
 onready var stopScroll = 500
 onready var scrollDist = 0
 export(PackedScene) var Enemy_scn = preload("res://Src/Enemy.tscn")
-export(int) var spawn_position = 1500
+export(int) var spawn_position = 2500
 export(int) var spawn_y = 760
 
 var base_scroll_speed
@@ -30,17 +30,8 @@ func _process(delta):
 	scrollDist += delta*base_pixel_speed
 #	print(scrollDist,' ',fmod(scrollDist,spawn_position),' ',delta*curr_pixel_speed,' ',spawn_position-delta*curr_pixel_speed)
 	if (spawn_position-delta*curr_pixel_speed<fmod(scrollDist,spawn_position)) || (fmod(scrollDist,spawn_position)<delta*curr_pixel_speed):
-		print('should spawn',' ',fmod(scrollDist,spawn_position))
+#		print('should spawn',' ',fmod(scrollDist,spawn_position))
 		New_enemy = Enemy_scn.instance()
 		New_enemy.set_global_position(Vector2(spawn_position,spawn_y))
 		New_enemy.pixel_speed=curr_pixel_speed
 		add_child(New_enemy)
-		pass
-#	print(Enemy.get_global_position())
-#	if Enemy.get_global_position().x <= stopScroll :
-#		curr_pixel_speed = 0.0
-#		Bckgnd.set_scroll_speed(0.0)
-#		Enemy.pixel_speed = 0.0
-##		Enemy.die()
-#		pass
-	pass
