@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=2]
+
+[node name="sword" type="KinematicBody2D"]
+
+[node name="swordsprite" type="Sprite" parent="."]
+position = Vector2( 254, 749 )
+scale = Vector2( 2.92188, 2.60156 )
+texture = ExtResource( 2 )
