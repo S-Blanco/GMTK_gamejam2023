@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/yellow_bar.png-70e49d2d37c512eb5bfec0d1a3acf899.stex"
+path="res://.import/yellow_bar.png-90ea7128e6cab9c18dcf1ac51ccedd83.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://yellow_bar.png"
-dest_files=[ "res://.import/yellow_bar.png-70e49d2d37c512eb5bfec0d1a3acf899.stex" ]
+source_file="res://Assets/UI/yellow_bar.png"
+dest_files=[ "res://.import/yellow_bar.png-90ea7128e6cab9c18dcf1ac51ccedd83.stex" ]
 
 [params]
 

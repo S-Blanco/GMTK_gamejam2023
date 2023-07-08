@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gold_background.png-8fd91d206bf25543faaf55bf4d746569.stex"
+path="res://.import/gold_background.png-cb6d9ece0fc44848010a6afb41038b65.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gold_background.png"
-dest_files=[ "res://.import/gold_background.png-8fd91d206bf25543faaf55bf4d746569.stex" ]
+source_file="res://Assets/UI/gold_background.png"
+dest_files=[ "res://.import/gold_background.png-cb6d9ece0fc44848010a6afb41038b65.stex" ]
 
 [params]
 

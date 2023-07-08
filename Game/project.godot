@@ -12,17 +12,17 @@ _global_script_classes=[ {
 "base": "StatsGen",
 "class": "StatsEnemy",
 "language": "GDScript",
-"path": "res://Src/StatsEnemy.gd"
+"path": "res://Src/Characters/StatsEnemy.gd"
 }, {
 "base": "Node",
 "class": "StatsGen",
 "language": "GDScript",
-"path": "res://Src/StatsGen.gd"
+"path": "res://Src/Characters/StatsGen.gd"
 }, {
 "base": "StatsGen",
 "class": "StatsHero",
 "language": "GDScript",
-"path": "res://Src/StatsHero.gd"
+"path": "res://Src/Characters/StatsHero.gd"
 } ]
 _global_script_class_icons={
 "StatsEnemy": "",
