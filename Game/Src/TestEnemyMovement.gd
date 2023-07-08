@@ -8,13 +8,8 @@ extends Control
 onready var Bckgnd = $Background/TextureRect
 onready var stopScroll = 500
 onready var scrollDist = 0
-<<<<<<< HEAD
 export(PackedScene) var Enemy_scn = preload("res://Src/Characters/Enemy.tscn")
 export(int) var spawn_position = 2800
-=======
-export(PackedScene) var Enemy_scn = preload("res://Src/Enemy.tscn")
-export(int) var spawn_position = 2500
->>>>>>> 920d9f9693baa4ba6ff4feb953c67e8931048d90
 export(int) var spawn_y = 760
 
 var base_scroll_speed
