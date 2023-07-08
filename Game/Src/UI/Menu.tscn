@@ -17,21 +17,30 @@ margin_top = -91.0
 margin_right = 155.0
 margin_bottom = 91.0
 
-[node name="RestartButton" type="Button" parent="VBoxContainer"]
+[node name="ContinueButton" type="Button" parent="VBoxContainer"]
 margin_right = 310.0
 margin_bottom = 20.0
-text = "Restart"
+text = "Continue"
 
-[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
 margin_top = 24.0
 margin_right = 310.0
 margin_bottom = 44.0
-text = "Settings"
+text = "Restart"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
 margin_top = 48.0
 margin_right = 310.0
 margin_bottom = 68.0
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+margin_top = 72.0
+margin_right = 310.0
+margin_bottom = 92.0
 text = "Quit"
 
+[connection signal="pressed" from="VBoxContainer/ContinueButton" to="." method="_on_ContinueButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
