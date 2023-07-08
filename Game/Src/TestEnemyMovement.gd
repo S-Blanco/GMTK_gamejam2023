@@ -10,7 +10,7 @@ onready var stopScroll = 500
 onready var scrollDist = 0
 export(PackedScene) var Enemy_scn = preload("res://Src/Characters/Enemy.tscn")
 export(int) var spawn_position = 2800
-export(int) var spawn_y = 760
+export(int) var spawn_y = 820
 
 var base_scroll_speed
 var base_pixel_speed
@@ -35,4 +35,9 @@ func _process(delta):
 		New_enemy.set_global_position(Vector2(spawn_position,spawn_y))
 		New_enemy.pixel_speed=curr_pixel_speed
 		add_child(New_enemy)
+
 	GlobalVariables.distance += delta*base_pixel_speed
+
+	for _i in self.get_children():
+		print(_i)
+

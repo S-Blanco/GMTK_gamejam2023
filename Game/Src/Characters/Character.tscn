@@ -1,13 +1,56 @@
-[gd_scene load_steps=3 format=2]
+
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Src/Objects/sword.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Assets/Characters/Heroes/Hero1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Characters/Heroes/Hero1-spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://Src/Characters/Character.gd" type="Script" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Frame"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
 
 [node name="Character" type="KinematicBody2D"]
+script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
+hframes = 4
 
 [node name="sword" parent="." instance=ExtResource( 1 )]
 position = Vector2( 127, -176 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Frame"
+anims/Frame = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+
