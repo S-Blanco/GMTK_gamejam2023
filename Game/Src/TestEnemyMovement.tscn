@@ -16,13 +16,13 @@ script = ExtResource( 3 )
 [node name="Character" parent="." instance=ExtResource( 4 )]
 position = Vector2( 242, 605 )
 
-[node name="Tween" type="Tween" parent="."]
-
 [node name="PlayerControls" parent="Character" instance=ExtResource( 1 )]
 margin_left = -242.0
 margin_top = -605.0
 margin_right = -242.0
 margin_bottom = -605.0
+
+[node name="Tween" type="Tween" parent="."]
 
 [node name="Power1Toggle" parent="." instance=ExtResource( 5 )]
 
@@ -36,4 +36,3 @@ margin_bottom = 545.0
 [connection signal="power1" from="Character/PlayerControls" to="." method="_on_PlayerControls_power1"]
 [connection signal="power2" from="Character/PlayerControls" to="." method="_on_PlayerControls_power2"]
 [connection signal="script_changed" from="Character/PlayerControls" to="." method="_on_PlayerControls_script_changed"]
-

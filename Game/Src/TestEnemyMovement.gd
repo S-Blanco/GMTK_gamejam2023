@@ -54,8 +54,8 @@ func _process(delta):
 	var closest_enemy
 	var NMX
 	
-  scrollDist += delta*base_pixel_speed
-  GlobalVariables.distance = scrollDist
+	scrollDist += delta*base_pixel_speed
+	GlobalVariables.distance = scrollDist
   
 # Enemy spawn
 #	print(scrollDist,' ',fmod(scrollDist,spawn_position),' ',delta*curr_pixel_speed,' ',spawn_position-delta*curr_pixel_speed)
@@ -65,7 +65,7 @@ func _process(delta):
 		New_enemy.set_global_position(Vector2(spawn_position,spawn_y))
 		New_enemy.pixel_speed=curr_pixel_speed
 		add_child(New_enemy)
-    
+	
 # Slowing down process
 	children = self.get_children()
 	if len(children)>init_child_num:
