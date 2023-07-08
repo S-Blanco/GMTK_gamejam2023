@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://Src/UI/PlayerControls.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/World/Background.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Src/TestEnemyMovement.gd" type="Script" id=3]
 [ext_resource path="res://Src/Characters/Character.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Src/UI/ToggleButton.tscn" type="PackedScene" id=5]
 
 [node name="TestEnemyMovement" type="Control"]
 margin_right = 40.0
@@ -13,3 +15,22 @@ script = ExtResource( 3 )
 
 [node name="Character" parent="." instance=ExtResource( 4 )]
 position = Vector2( 242, 605 )
+
+[node name="PlayerControls" parent="Character" instance=ExtResource( 1 )]
+margin_left = -242.0
+margin_top = -605.0
+margin_right = -242.0
+margin_bottom = -605.0
+
+[node name="Power1Toggle" parent="." instance=ExtResource( 5 )]
+
+[node name="Power2Toggle" parent="." instance=ExtResource( 5 )]
+margin_left = 907.0
+margin_top = 413.0
+margin_right = 1053.0
+margin_bottom = 545.0
+
+[connection signal="focus_entered" from="Character/PlayerControls" to="." method="_on_PlayerControls_focus_entered"]
+[connection signal="power1" from="Character/PlayerControls" to="." method="_on_PlayerControls_power1"]
+[connection signal="power2" from="Character/PlayerControls" to="." method="_on_PlayerControls_power2"]
+[connection signal="script_changed" from="Character/PlayerControls" to="." method="_on_PlayerControls_script_changed"]
