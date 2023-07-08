@@ -13,3 +13,5 @@ script = ExtResource( 3 )
 
 [node name="Character" parent="." instance=ExtResource( 4 )]
 position = Vector2( 242, 605 )
+
+[node name="Tween" type="Tween" parent="."]
