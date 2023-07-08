@@ -1,8 +1,9 @@
 extends Node
 
 var distance = 0
-var gloryval = 0
 
+var glory = 0.03
+var damage = 0
 
 # Player's control
 var power1_key = KEY_SPACE

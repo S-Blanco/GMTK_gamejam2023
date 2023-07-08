@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Fonts/Sketch Gothic School.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Fonts/Enchanted Land.otf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 200
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 200
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 120
+font_data = ExtResource( 2 )
+
+[node name="EndgameScreen" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="LostLabel_Legend" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -893.0
+margin_top = 120.0
+margin_right = 893.0
+margin_bottom = 421.0
+custom_fonts/font = SubResource( 1 )
+text = "Too bad,
+You've become legendary..."
+align = 1
+
+[node name="LostLabel_Rubbish" type="Label" parent="CanvasLayer"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -826.5
+margin_top = 120.0
+margin_right = 826.5
+margin_bottom = 421.0
+custom_fonts/font = SubResource( 2 )
+text = "Too bad, 
+You've become rubbish..."
+align = 1
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -680.5
+margin_top = -347.0
+margin_right = 680.5
+custom_fonts/font = SubResource( 3 )
+text = "But you managed to run ... kms ! 
+"
+align = 1

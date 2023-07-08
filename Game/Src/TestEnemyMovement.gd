@@ -48,10 +48,8 @@ func _process(delta):
 		New_enemy.set_global_position(Vector2(spawn_position,spawn_y))
 		New_enemy.pixel_speed=curr_pixel_speed
 		add_child(New_enemy)
-	#for _i in self.get_children():
-	# 	print(_i)
-
-
+  GlobalVariables.distance += delta*base_pixel_speed
+  
 func _on_PlayerControls_power1():
 	if power_slots[0]==0:
 		power1_toggle.change_to_filled_texture()
@@ -68,4 +66,4 @@ func _on_PlayerControls_power2():
 	else:
 		power2_toggle.change_to_empty_texture()
 		power_slots[1] = 0
-	
+
