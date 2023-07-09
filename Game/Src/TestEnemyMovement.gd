@@ -1,6 +1,6 @@
 extends Control
 
-signal hero_stopped
+signal hero_starts_fighting
 signal hero_runs_again # Cleme emits this signal when hero won fight
 signal hero_died # Cleme emits this signal when hero lost fight
 
@@ -70,6 +70,7 @@ var closest_enemy
 var NMX
 var idx
 var current_game_status
+var enemy_is_alive = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -92,48 +93,49 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-
+	print(current_game_status)
+	print(enemy_is_alive)
 	scrollDist += delta*base_pixel_speed
 	GlobalVariables.distance = scrollDist
-  
 
-#	Enemy spawn
-#	the "\" split the if conditions on multiple line
-	if (enemySpawnX-delta*curr_pixel_speed<fmod(scrollDist,enemySpawnX)) or \
-		(fmod(scrollDist,enemySpawnX)<delta*curr_pixel_speed):
-		idx=rng.randi_range(0, len(enemies)-1)
-		New_enemy = enemies[idx].instance()
-		New_enemy.set_global_position(Vector2(enemySpawnX,spawn_y))
-		New_enemy.pixel_speed=curr_pixel_speed
-		add_child(New_enemy)
-	
 #	Slowing down process
-
 	children = self.get_children()
-	if current_game_status == game_status.RUNNING and \
-		len(children)>init_child_num:
-		closest_enemy = children[init_child_num]
-		NMX = closest_enemy.get_global_position().x
-		if (NMX<stopScroll+delta*curr_pixel_speed) and (NMX>stopScroll-delta*curr_pixel_speed):
-			emit_signal("hero_stopped")
-			# woah_there(children)
+	if current_game_status == game_status.RUNNING:
+		#	Enemy spawn
+	#	the "\" split the if conditions on multiple line
+		if not enemy_is_alive and\
+			(enemySpawnX-delta*curr_pixel_speed<fmod(scrollDist,enemySpawnX)*0.99) or \
+			(fmod(scrollDist,enemySpawnX)<delta*curr_pixel_speed*0.99):
+			enemy_is_alive = true
+			idx=rng.randi_range(0, len(enemies)-1)
+			New_enemy = enemies[idx].instance()
+			New_enemy.set_global_position(Vector2(enemySpawnX,spawn_y))
+			New_enemy.pixel_speed=curr_pixel_speed
+	#		add_child(New_enemy, name ="current_enemy")
+			add_child(New_enemy)
+		
+		if len(children)>init_child_num and enemy_is_alive:
+			closest_enemy = children[init_child_num]
+			NMX = closest_enemy.get_global_position().x
+			if (NMX<stopScroll+delta*curr_pixel_speed) and (NMX>stopScroll-delta*curr_pixel_speed):
+				emit_signal("hero_starts_fighting")
 
-	# DEBUG press right to kill monster
-	if Input.is_action_pressed("ui_right") and \
-		current_game_status == game_status.FIGHTING:
-
-		print('let s run again')
-		emit_signal("hero_runs_again")
-#		closest_enemy.die()
-#		yield(children[init_child_num],'died')
-#		yield(children[init_child_num].anim,"finished")
-#		move_again(children,Bckgnd)
-#		$Character.die()
-	# DEBUG : press left to die
-	if Input.is_action_pressed("ui_left") and \
-		current_game_status == game_status.FIGHTING:
-		print('Your hero died')
-		emit_signal("hero_died")
+	elif current_game_status == game_status.FIGHTING:
+		# DEBUG press right to kill monster
+		if Input.is_action_pressed("ui_right"):
+			print('The enemy is killed, let s run again')
+			emit_signal("hero_runs_again")
+	#		closest_enemy.die()
+	#		yield(children[init_child_num],'died')
+	#		yield(children[init_child_num].anim,"finished")
+	#		move_again(children,Bckgnd)
+	#		$Character.die()
+		# DEBUG : press left to die
+		if Input.is_action_pressed("ui_left"):
+			print('Your hero died')
+			emit_signal("hero_died")
+	else:
+		pass
 
 
 #func slow_down(closest_enemy,startX,endX,slowTime):
@@ -159,7 +161,7 @@ func _process(delta):
 ##	tween.start()
 
 # stop the scrolling of the scene
-func woah_there(children):
+func stop_scrolling(children):
 	Bckgnd.set_scroll_speed(0.0)
 	for i in range(init_child_num,len(children)):
 		if not children[i].get("pixel_speed") == null:
@@ -171,6 +173,7 @@ func woah_there(children):
 	
 func move_again(children):
 	Bckgnd.set_scroll_speed(base_scroll_speed)
+	base_pixel_speed = base_scroll_speed*Bckgnd.texture.get_size().x
 	for i in range(init_child_num,len(children)):
 		children[i].pixel_speed = base_pixel_speed
 	charPlayer.play()
