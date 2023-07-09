@@ -18,7 +18,9 @@ func _ready():
 
 func _on_RestartButton_pressed():
 	# TODO : reset glory and distance in global_var
-	print("Restart the game, set glory to 50 and distance to 0")
+	GlobalVariables.glory= 0.1
+	GlobalVariables.distance = 0
+	get_tree().change_scene("res://Src/World/world.tscn")
 	# get_tree().change_scene("res://Src/TestEnemyMovement.tscn")
 
 func _on_QuitButton_pressed():
