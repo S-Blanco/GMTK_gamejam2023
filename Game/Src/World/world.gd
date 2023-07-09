@@ -9,8 +9,7 @@ onready var red = $CanvasLayer/HealthUI/Red
 onready var TestEnemyMouvement = $TestEnemyMovement
 
 func _process(_delta):
-	
-	
+
 	if GlobalVariables.glory > 0.03:
 		gloryUI.set_glory(GlobalVariables.glory)	
 
@@ -36,11 +35,13 @@ func _process(_delta):
 
 func _on_TestEnemyMovement_hero_runs_again():
 	print("hero starts running again")
-	var last_child = TestEnemyMouvement.get_child(TestEnemyMouvement.get_child_count()-1)
+	var enemy_child = TestEnemyMouvement.get_child(TestEnemyMouvement.get_child_count()-1)
 	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.RUNNING
-	last_child.die()
+	enemy_child.die()
+	TestEnemyMouvement.enemy_is_alive=false
+	TestEnemyMouvement.move_again(TestEnemyMouvement.get_children())
 	
-func _on_TestEnemyMovement_hero_stopped():
+func _on_TestEnemyMovement_hero_starts_fighting():
 	TestEnemyMouvement.stop_scrolling(TestEnemyMouvement.get_children())
 	# Cleme adds the call to start fight here
 	print("hero stops to fight")
@@ -58,7 +59,7 @@ func _on_TestEnemyMovement_hero_died():
 		TestEnemyMouvement.spawn_player()
 		var last_child = TestEnemyMouvement.get_child(TestEnemyMouvement.get_child_count()-1)
 		print(last_child.name)
-		TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.FIGHTING
+		TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.RUNNING
 		print("hero died, send a new one")
 	#	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.DROPPED
 	# need this else pass for it to work. Without it, it tries to delete it before it exists?

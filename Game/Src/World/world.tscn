@@ -156,7 +156,7 @@ autostart = true
 
 [connection signal="hero_died" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_died"]
 [connection signal="hero_runs_again" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_runs_again"]
-[connection signal="hero_stopped" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_stopped"]
+[connection signal="hero_starts_fighting" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_starts_fighting"]
 [connection signal="power1" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressSpace" method="_on_PlayerControls_power1"]
 [connection signal="power2" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressEnter" method="_on_PlayerControls_power2"]
 [connection signal="timeout" from="Timer" to="CanvasLayer/GlobalInstruction" method="_on_Timer_timeout"]
