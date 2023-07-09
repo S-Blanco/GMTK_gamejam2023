@@ -1,12 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Src/Characters/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Characters/Enemies/Blob.png" type="Texture" id=2]
 [ext_resource path="res://Src/Animations/Disappear.tres" type="Animation" id=3]
 [ext_resource path="res://Src/Characters/StatsEnemy.tscn" type="PackedScene" id=4]
-
-[sub_resource type="CircleShape2D" id=1]
-radius = 340.212
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -31,10 +28,6 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 
 [node name="Visibility" type="VisibilityNotifier2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -8, -14 )
-shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Disappear = ExtResource( 3 )
