@@ -18,6 +18,11 @@ script = ExtResource( 3 )
 [node name="Character" parent="TestEnemyMovement" index="1"]
 position = Vector2( 393, 767 )
 
+[node name="Tween" parent="TestEnemyMovement" index="2"]
+__meta__ = {
+"_editor_description_": "In betweener to smooth the animation"
+}
+
 [node name="Power1Toggle" parent="TestEnemyMovement" index="3"]
 margin_left = 596.0
 margin_top = 62.0
@@ -71,6 +76,10 @@ rect_scale = Vector2( 0.2, 0.2 )
 margin_top = 0.0
 margin_bottom = 400.0
 rect_scale = Vector2( 1e-05, 0.2 )
+
+[connection signal="hero_died" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_died"]
+[connection signal="hero_runs_again" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_runs_again"]
+[connection signal="hero_stopped" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_stopped"]
 
 [editable path="TestEnemyMovement"]
 [editable path="CanvasLayer/GloryUI"]

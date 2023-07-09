@@ -1,9 +1,9 @@
 extends Control
 
+signal hero_stopped
+signal hero_runs_again # Cleme emits this signal when hero won fight
+signal hero_died # Cleme emits this signal when hero lost fight
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 #onready var Enemy = $Enemy
 onready var Bckgnd = $Background/TextureRect
 onready var charPlayer = $Character/AnimationPlayer
@@ -19,7 +19,7 @@ export(int) var startSlow = 1200
 export(int) var enemySpawnX = 2800
 export(int) var spawn_y = 820
 export(float) var slowTime = 1.5
-export(int) var playerSpawnX = -200
+export(int) var PLAYER_SPAWN_X = -200
 
 var base_scroll_speed
 var base_pixel_speed
@@ -27,18 +27,29 @@ var curr_pixel_speed
 var curr_scroll_speed
 var init_child_num
 
+# variable used to indicate what action to perform in the game loop
+var game_status = "running"
+
 # For the power ups, 0 means empty
 # number from 1 to 9 will be associated
 # with a unique power up/down
-var power_slots = [0,0]
+# the list of powers should be stored in an enum
+# later so we can write, e.g. power_slots[0]=fire
+enum powers {no_power,
+			lightning,
+			potion,
+			slippery_hands
+			}
+var power_slots = [powers.no_power,powers.no_power]
 
 onready var player_controls = $PlayerControls
 onready var power1_toggle = $Power1Toggle
 onready var power2_toggle = $Power2Toggle
 
-
-# onready var testt = get_node("res://Src/UI/PlayerControls.tscn")
-# testt.connect("power1",self,_on_power1)
+var New_enemy
+var children
+var closest_enemy
+var NMX
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,44 +58,44 @@ func _ready():
 	curr_pixel_speed = base_pixel_speed
 	curr_scroll_speed = base_scroll_speed
 	init_child_num = len(self.get_children())
-	$Character.connect('died',self,'spawn_player',[playerSpawnX])
-	pass # Replace with function body.
+	# $Character.connect('died',self,'spawn_player',[playerSpawnX])
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var New_enemy
-	var children
-	var closest_enemy
-	var NMX
-	
+	print("process still running")
 	scrollDist += delta*base_pixel_speed
 	GlobalVariables.distance = scrollDist
   
-# Enemy spawn
-#	print(scrollDist,' ',fmod(scrollDist,enemySpawnX),' ',delta*curr_pixel_speed,' ',enemySpawnX-delta*curr_pixel_speed)
-	if (enemySpawnX-delta*curr_pixel_speed<fmod(scrollDist,enemySpawnX)) || (fmod(scrollDist,enemySpawnX)<delta*curr_pixel_speed):
-#		print('should spawn',' ',fmod(scrollDist,enemySpawnX))
+
+#	Enemy spawn
+#	the "\" split the if conditions on multiple line
+	if (enemySpawnX-delta*curr_pixel_speed<fmod(scrollDist,enemySpawnX)) or \
+		(fmod(scrollDist,enemySpawnX)<delta*curr_pixel_speed):
+			
 		New_enemy = enemyScn.instance()
 		New_enemy.set_global_position(Vector2(enemySpawnX,spawn_y))
 		New_enemy.pixel_speed=curr_pixel_speed
 		add_child(New_enemy)
 	
-# Slowing down process
+#	Slowing down process
 	children = self.get_children()
-	if len(children)>init_child_num:
+	if game_status == "running" and \
+		len(children)>init_child_num:
 		closest_enemy = children[init_child_num]
 		NMX = closest_enemy.get_global_position().x
-		if (NMX<stopScroll+delta*curr_pixel_speed) && (NMX>stopScroll-delta*curr_pixel_speed):
-			woah_there(children,Bckgnd)
-	
-	if Input.is_action_pressed("ui_right") && not isRunning:
+		if (NMX<stopScroll+delta*curr_pixel_speed) and (NMX>stopScroll-delta*curr_pixel_speed):
+			emit_signal("hero_stopped")
+			# woah_there(children)
+
+	if Input.is_action_pressed("ui_right") and not isRunning:
 		print('let s run again')
 #		closest_enemy.die()
 #		yield(children[init_child_num],'died')
 #		yield(children[init_child_num].anim,"finished")
 #		move_again(children,Bckgnd)
 #		$Character.die()
-		spawn_player(playerSpawnX)
+		
+
 #func slow_down(closest_enemy,startX,endX,slowTime):
 #	var tween = get_node("Tween")
 #	curr_pixel_speed = 0.0
@@ -107,17 +118,19 @@ func _process(delta):
 ##		   Tween.TRANS_CUBIC, Tween.EASE_IN)
 ##	tween.start()
 
-func woah_there(children,bckgnd):
-	bckgnd.set_scroll_speed(0.0)
+# stop the scrolling of the scene
+func woah_there(children):
+	Bckgnd.set_scroll_speed(0.0)
 	for i in range(init_child_num,len(children)):
 		if not children[i].get("pixel_speed") == null:
 			children[i].pixel_speed = 0.0
 	charPlayer.stop()
 	isRunning = false
-	pass
+	base_pixel_speed=0
 	
-func move_again(children,bckgnd):
-	bckgnd.set_scroll_speed(base_scroll_speed)
+	
+func move_again(children):
+	Bckgnd.set_scroll_speed(base_scroll_speed)
 	for i in range(init_child_num,len(children)):
 		children[i].pixel_speed = base_pixel_speed
 	charPlayer.play()
@@ -125,28 +138,26 @@ func move_again(children,bckgnd):
 	pass
 	
 func _on_PlayerControls_power1():
-	if power_slots[0]==0:
+	if power_slots[0] == powers.no_power:
 		power1_toggle.change_to_filled_texture()
-		power_slots[0]=1
+		power_slots[0]= powers.lightning
 	else:
 		power1_toggle.change_to_empty_texture()
-		power_slots[0] = 0
-	
-	
+		power_slots[0] = powers.no_power
+
 func _on_PlayerControls_power2():
-	if power_slots[1]==0:
+	if power_slots[1] == powers.no_power:
 		power2_toggle.change_to_filled_texture()
-		power_slots[1]=1
+		power_slots[1]= powers.lightning
 	else:
 		power2_toggle.change_to_empty_texture()
-		power_slots[1] = 0
+		power_slots[1] = powers.no_power
 
-func spawn_player(position):
+func spawn_player():
 	var newPlayer
 	newPlayer = playerScn.instance()
-	newPlayer.set_global_position(Vector2(position,spawn_y))
+	newPlayer.set_global_position(Vector2(PLAYER_SPAWN_X,spawn_y))
 	add_child(newPlayer)
 	var tween = get_node("Tween")
-	tween.interpolate_property(newPlayer, "position:x",position,242,2,Tween.TRANS_CUBIC, Tween.EASE_IN)
+	tween.interpolate_property(newPlayer, "position:x",PLAYER_SPAWN_X,242,2,Tween.TRANS_CUBIC, Tween.EASE_IN)
 	tween.start()
-	pass
