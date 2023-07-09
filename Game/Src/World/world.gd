@@ -109,6 +109,7 @@ func _on_TestEnemyMovement_hero_died():
 		var last_child = TestEnemyMouvement.get_child(TestEnemyMouvement.get_child_count()-1)
 		print(last_child.name)
 		TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.RUNNING
+		GlobalVariables.damage = 0
 		print("hero died, send a new one")
 	#	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.DROPPED
 	# need this else pass for it to work. Without it, it tries to delete it before it exists?

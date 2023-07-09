@@ -129,9 +129,9 @@ func _process(delta):
 	#		move_again(children,Bckgnd)
 	#		$Character.die()
 		# DEBUG : press left to die
-		if Input.is_action_pressed("ui_left"):
-			print('Your hero died')
-			emit_signal("hero_died")
+		#if Input.is_action_pressed("ui_left"):
+		#	print('Your hero died')
+		#	emit_signal("hero_died")
 	else:
 		pass
 

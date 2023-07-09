@@ -125,14 +125,16 @@ margin_bottom = 569.0
 rect_rotation = 0.264847
 
 [node name="Green" parent="CanvasLayer/HealthUI" index="1"]
-margin_left = 17.9997
-margin_top = -0.083252
-margin_right = 1938.0
-margin_bottom = 399.917
+margin_left = 54.9993
+margin_top = -0.254883
+margin_right = 1975.0
+margin_bottom = 399.745
 rect_scale = Vector2( 0.2, 0.2 )
 
 [node name="Red" parent="CanvasLayer/HealthUI" index="2"]
+margin_left = 60.0
 margin_top = 0.0
+margin_right = 1980.0
 margin_bottom = 400.0
 rect_scale = Vector2( 1e-05, 0.2 )
 
@@ -145,6 +147,7 @@ margin_left = -435.0
 margin_top = -281.0
 margin_right = 549.0
 margin_bottom = -34.0
+custom_colors/font_color = Color( 0.556863, 0.498039, 0.0901961, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "Keep your glory as average as possible 
 in order to last as long as possible"
@@ -152,24 +155,24 @@ align = 1
 script = ExtResource( 7 )
 
 [node name="PressSpace" type="Label" parent="CanvasLayer"]
-margin_left = 84.0
-margin_top = 101.0
-margin_right = 186.0
-margin_bottom = 246.0
+margin_left = 41.0
+margin_top = 226.0
+margin_right = 226.0
+margin_bottom = 296.0
+custom_colors/font_color = Color( 0.556863, 0.498039, 0.0901961, 1 )
 custom_fonts/font = SubResource( 3 )
-text = "Press 
-Space"
+text = "Space"
 align = 1
 script = ExtResource( 8 )
 
 [node name="PressEnter" type="Label" parent="CanvasLayer"]
-margin_left = 280.0
-margin_top = 106.0
-margin_right = 361.0
-margin_bottom = 227.0
+margin_left = 256.0
+margin_top = 232.0
+margin_right = 385.0
+margin_bottom = 297.0
+custom_colors/font_color = Color( 0.556863, 0.498039, 0.0901961, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "Press
-Enter"
+text = "Enter"
 align = 1
 script = ExtResource( 9 )
 
@@ -187,9 +190,6 @@ autostart = true
 [editable path="TestEnemyMovement"]
 [editable path="TestEnemyMovement/Background"]
 [editable path="TestEnemyMovement/Character"]
-
 [editable path="TestEnemyMovement/Character/sword"]
-[editable path="EndgameScreen"]
-
 [editable path="CanvasLayer/GloryUI"]
 [editable path="CanvasLayer/HealthUI"]
