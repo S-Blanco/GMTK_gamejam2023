@@ -34,11 +34,6 @@ func _process(_delta):
 		GlobalVariables.glory +=0.2
 		
 
-
-
-
-
-
 func _on_TestEnemyMovement_hero_runs_again():
 	print("hero starts running again")
 	var last_child = TestEnemyMouvement.get_child(TestEnemyMouvement.get_child_count()-1)
@@ -46,14 +41,20 @@ func _on_TestEnemyMovement_hero_runs_again():
 	last_child.die()
 	
 func _on_TestEnemyMovement_hero_stopped():
-	TestEnemyMouvement.woah_there(TestEnemyMouvement.get_children())
+	TestEnemyMouvement.stop_scrolling(TestEnemyMouvement.get_children())
 	# Cleme adds the call to start fight here
 	print("hero stops to fight")
 	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.FIGHTING
 
 func _on_TestEnemyMovement_hero_died():
-	var hero_child = TestEnemyMouvement.get_child(1)
+	var hero_child
+	for child in TestEnemyMouvement.get_children():
+		if child.name == "Character":
+			hero_child = child
+			break
+	print(hero_child.name)
 	hero_child.die()
 	TestEnemyMouvement.spawn_player()
+	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.RUNNING
 	print("hero died, send a new one")
-	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.DROPPED
+#	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.DROPPED
