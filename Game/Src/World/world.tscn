@@ -34,12 +34,6 @@ margin_bottom = 195.0
 [node name="EndgameScreen" parent="." instance=ExtResource( 6 )]
 position = Vector2( 68, 132 )
 
-[node name="LostLabel_Legend" parent="EndgameScreen/CanvasLayer" index="0"]
-visible = false
-
-[node name="Label" parent="EndgameScreen/CanvasLayer" index="2"]
-visible = false
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GloryUI" parent="CanvasLayer" instance=ExtResource( 1 )]
