@@ -21,6 +21,7 @@ func _process(_delta):
 		get_tree().change_scene("res://Src/UI/EndgameScreen.tscn")
 		
 	if GlobalVariables.distance > 0:
+		GlobalVariables.distance = GlobalVariables.distance/1000
 		dist.text = "distance =" +str(GlobalVariables.distance)
 		
 		

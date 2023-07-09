@@ -15,4 +15,4 @@ func _process(delta):
 		label.visible = true
 		
 	if GlobalVariables.distance >= 0:
-		label.text = "But you managed to run" +str(GlobalVariables.distance) + "kms"
+		label.text = "But you managed to last " +str(GlobalVariables.distance/1000) + " days"
