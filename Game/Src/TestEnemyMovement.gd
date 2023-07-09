@@ -89,11 +89,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	print(current_game_status)
 
 	scrollDist += delta*base_pixel_speed
 	GlobalVariables.distance = scrollDist
   
-
 #	Enemy spawn
 #	the "\" split the if conditions on multiple line
 	if (enemySpawnX-delta*curr_pixel_speed<fmod(scrollDist,enemySpawnX)) or \
@@ -102,10 +102,10 @@ func _process(delta):
 		New_enemy = enemies[idx].instance()
 		New_enemy.set_global_position(Vector2(enemySpawnX,spawn_y))
 		New_enemy.pixel_speed=curr_pixel_speed
+#		add_child(New_enemy, name ="current_enemy")
 		add_child(New_enemy)
 	
 #	Slowing down process
-
 	children = self.get_children()
 	if current_game_status == game_status.RUNNING and \
 		len(children)>init_child_num:
@@ -113,7 +113,6 @@ func _process(delta):
 		NMX = closest_enemy.get_global_position().x
 		if (NMX<stopScroll+delta*curr_pixel_speed) and (NMX>stopScroll-delta*curr_pixel_speed):
 			emit_signal("hero_stopped")
-			# woah_there(children)
 
 	# DEBUG press right to kill monster
 	if Input.is_action_pressed("ui_right") and \
@@ -156,7 +155,7 @@ func _process(delta):
 ##	tween.start()
 
 # stop the scrolling of the scene
-func woah_there(children):
+func stop_scrolling(children):
 	Bckgnd.set_scroll_speed(0.0)
 	for i in range(init_child_num,len(children)):
 		if not children[i].get("pixel_speed") == null:
