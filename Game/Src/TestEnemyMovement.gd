@@ -4,6 +4,19 @@ signal hero_stopped
 signal hero_runs_again # Cleme emits this signal when hero won fight
 signal hero_died # Cleme emits this signal when hero lost fight
 
+
+
+export(PackedScene) var enemyScn = preload("res://Src/Characters/Enemy.tscn")
+export(PackedScene) var enemyScn2 = preload("res://Src/Characters/Enemy2.tscn")
+export(PackedScene) var enemyScn3 = preload("res://Src/Characters/Enemy3.tscn")
+export(PackedScene) var playerScn = preload("res://Src/Characters/Character.tscn")
+export(int) var startSlow = 1200
+export(int) var enemySpawnX = 2800
+export(int) var spawn_y = 820
+export(float) var slowTime = 1.5
+export(int) var playerSpawnX = -200
+
+
 #onready var Enemy = $Enemy
 onready var Bckgnd = $Background/TextureRect
 onready var charPlayer = $Character/AnimationPlayer
@@ -13,6 +26,9 @@ onready var scrollDist = 0
 onready var isSlowing = false
 onready var isRunning = true
 
+
+onready var enemies = [enemyScn,enemyScn2,enemyScn3]
+
 export(PackedScene) var enemyScn = preload("res://Src/Characters/Enemy.tscn")
 export(PackedScene) var playerScn = preload("res://Src/Characters/Character.tscn")
 export(int) var startSlow = 1200
@@ -21,11 +37,13 @@ export(int) var spawn_y = 820
 export(float) var slowTime = 1.5
 export(int) var PLAYER_SPAWN_X = -200
 
+
 var base_scroll_speed
 var base_pixel_speed
 var curr_pixel_speed
 var curr_scroll_speed
 var init_child_num
+var rng = RandomNumberGenerator.new()
 
 # variable used to indicate what action to perform in the game loop
 var game_status = "running"
@@ -50,9 +68,11 @@ var New_enemy
 var children
 var closest_enemy
 var NMX
+var idx
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	rng.randomize()
 	base_scroll_speed = Bckgnd.scroll_speed
 	base_pixel_speed = base_scroll_speed*Bckgnd.texture.get_size().x
 	curr_pixel_speed = base_pixel_speed
@@ -62,7 +82,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print("process still running")
 	scrollDist += delta*base_pixel_speed
 	GlobalVariables.distance = scrollDist
   
@@ -71,8 +90,9 @@ func _process(delta):
 #	the "\" split the if conditions on multiple line
 	if (enemySpawnX-delta*curr_pixel_speed<fmod(scrollDist,enemySpawnX)) or \
 		(fmod(scrollDist,enemySpawnX)<delta*curr_pixel_speed):
-			
-		New_enemy = enemyScn.instance()
+	    idx=rng.randi_range(0, len(enemies)-1)
+		New_enemy = enemies[idx].instance()
+
 		New_enemy.set_global_position(Vector2(enemySpawnX,spawn_y))
 		New_enemy.pixel_speed=curr_pixel_speed
 		add_child(New_enemy)
