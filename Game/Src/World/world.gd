@@ -47,14 +47,20 @@ func _on_TestEnemyMovement_hero_stopped():
 	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.FIGHTING
 
 func _on_TestEnemyMovement_hero_died():
-	var hero_child
+	var hero_child = null
 	for child in TestEnemyMouvement.get_children():
 		if child.name == "Character":
 			hero_child = child
 			break
-	print(hero_child.name)
-	hero_child.die()
-	TestEnemyMouvement.spawn_player()
-	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.RUNNING
-	print("hero died, send a new one")
-#	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.DROPPED
+	if hero_child != null:
+		print(hero_child.name)
+		hero_child.die()
+		TestEnemyMouvement.spawn_player()
+		var last_child = TestEnemyMouvement.get_child(TestEnemyMouvement.get_child_count()-1)
+		print(last_child.name)
+		TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.FIGHTING
+		print("hero died, send a new one")
+	#	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.DROPPED
+	# need this else pass for it to work. Without it, it tries to delete it before it exists?
+	else:
+		pass

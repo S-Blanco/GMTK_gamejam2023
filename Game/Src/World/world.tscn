@@ -161,7 +161,6 @@ autostart = true
 [connection signal="power2" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressEnter" method="_on_PlayerControls_power2"]
 [connection signal="timeout" from="Timer" to="CanvasLayer/GlobalInstruction" method="_on_Timer_timeout"]
 
-
 [editable path="TestEnemyMovement"]
 [editable path="TestEnemyMovement/Background"]
 [editable path="TestEnemyMovement/Character"]
