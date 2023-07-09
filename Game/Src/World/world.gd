@@ -5,14 +5,15 @@ onready var gloryUI = $CanvasLayer/GloryUI
 onready var dist = $CanvasLayer/GloryUI/distance
 onready var healthUI =$CanvasLayer/HealthUI
 onready var red = $CanvasLayer/HealthUI/Red
-
 onready var TestEnemyMouvement = $TestEnemyMovement
+
+
 
 func _process(_delta):
 	
 	
 	if GlobalVariables.glory > 0.03:
-		gloryUI.set_glory(GlobalVariables.glory)	
+		gloryUI.set_glory(GlobalVariables.glory)
 
 		
 	if GlobalVariables.glory >= gloryUI.max_glory:
