@@ -18,13 +18,13 @@ script = ExtResource( 3 )
 [node name="Character" parent="TestEnemyMovement" index="1"]
 position = Vector2( 393, 767 )
 
-[node name="Power1Toggle" parent="TestEnemyMovement" index="2"]
+[node name="Power1Toggle" parent="TestEnemyMovement" index="3"]
 margin_left = 596.0
 margin_top = 62.0
 margin_right = 742.0
 margin_bottom = 194.0
 
-[node name="Power2Toggle" parent="TestEnemyMovement" index="3"]
+[node name="Power2Toggle" parent="TestEnemyMovement" index="4"]
 margin_left = 763.0
 margin_top = 63.0
 margin_right = 909.0
