@@ -9,12 +9,21 @@ signal hero_died # Cleme emits this signal when hero lost fight
 export(PackedScene) var enemyScn = preload("res://Src/Characters/Enemy.tscn")
 export(PackedScene) var enemyScn2 = preload("res://Src/Characters/Enemy2.tscn")
 export(PackedScene) var enemyScn3 = preload("res://Src/Characters/Enemy3.tscn")
+export(PackedScene) var enemyScn4 = preload("res://Src/Characters/Enemy4.tscn")
+export(PackedScene) var enemyScn5 = preload("res://Src/Characters/Enemy5.tscn")
+export(PackedScene) var enemyScn6 = preload("res://Src/Characters/Enemy6.tscn")
+export(PackedScene) var enemyScn7 = preload("res://Src/Characters/Enemy7.tscn")
+export(PackedScene) var enemyScn8 = preload("res://Src/Characters/Enemy8.tscn")
+export(PackedScene) var enemyScn9 = preload("res://Src/Characters/Enemy9.tscn")
+export(PackedScene) var enemyScn10 = preload("res://Src/Characters/Enemy10.tscn")
+
 export(PackedScene) var playerScn = preload("res://Src/Characters/Character.tscn")
+
 export(int) var startSlow = 1200
 export(int) var enemySpawnX = 2800
 export(int) var spawn_y = 820
 export(float) var slowTime = 1.5
-export(int) var playerSpawnX = -200
+export(int) var PLAYER_SPAWN_X = -200
 
 
 #onready var Enemy = $Enemy
@@ -27,15 +36,11 @@ onready var isSlowing = false
 onready var isRunning = true
 
 
-onready var enemies = [enemyScn,enemyScn2,enemyScn3]
+onready var enemies = [enemyScn,enemyScn2,enemyScn3,enemyScn4,enemyScn5,enemyScn6,enemyScn7,enemyScn8,enemyScn9,enemyScn10]
 
-export(PackedScene) var enemyScn = preload("res://Src/Characters/Enemy.tscn")
-export(PackedScene) var playerScn = preload("res://Src/Characters/Character.tscn")
-export(int) var startSlow = 1200
-export(int) var enemySpawnX = 2800
-export(int) var spawn_y = 820
-export(float) var slowTime = 1.5
-export(int) var PLAYER_SPAWN_X = -200
+
+
+
 
 
 var base_scroll_speed
@@ -90,7 +95,7 @@ func _process(delta):
 #	the "\" split the if conditions on multiple line
 	if (enemySpawnX-delta*curr_pixel_speed<fmod(scrollDist,enemySpawnX)) or \
 		(fmod(scrollDist,enemySpawnX)<delta*curr_pixel_speed):
-	    idx=rng.randi_range(0, len(enemies)-1)
+		idx=rng.randi_range(0, len(enemies)-1)
 		New_enemy = enemies[idx].instance()
 
 		New_enemy.set_global_position(Vector2(enemySpawnX,spawn_y))
