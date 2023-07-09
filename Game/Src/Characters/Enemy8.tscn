@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Src/Characters/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Characters/Enemies/Toast.png" type="Texture" id=2]
+
+[node name="Enemy8" instance=ExtResource( 1 )]
+
+[node name="Sprite" parent="." index="0"]
+scale = Vector2( 1.58672, 1.57554 )
+texture = ExtResource( 2 )
+
+[node name="StatsEnemy" parent="." index="4"]
+glory_win = 0.003
