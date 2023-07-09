@@ -129,10 +129,10 @@ align = 1
 script = ExtResource( 7 )
 
 [node name="PressSpace" type="Label" parent="CanvasLayer"]
-margin_left = 91.0
-margin_top = 92.0
-margin_right = 193.0
-margin_bottom = 237.0
+margin_left = 84.0
+margin_top = 101.0
+margin_right = 186.0
+margin_bottom = 246.0
 custom_fonts/font = SubResource( 3 )
 text = "Press 
 Space"
@@ -140,10 +140,10 @@ align = 1
 script = ExtResource( 8 )
 
 [node name="PressEnter" type="Label" parent="CanvasLayer"]
-margin_left = 278.0
-margin_top = 95.0
-margin_right = 359.0
-margin_bottom = 216.0
+margin_left = 280.0
+margin_top = 106.0
+margin_right = 361.0
+margin_bottom = 227.0
 custom_fonts/font = SubResource( 4 )
 text = "Press
 Enter"
@@ -154,13 +154,9 @@ script = ExtResource( 9 )
 wait_time = 4.0
 autostart = true
 
-[connection signal="hero_died" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_died"]
-[connection signal="hero_runs_again" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_runs_again"]
-[connection signal="hero_stopped" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_stopped"]
 [connection signal="power1" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressSpace" method="_on_PlayerControls_power1"]
 [connection signal="power2" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressEnter" method="_on_PlayerControls_power2"]
 [connection signal="timeout" from="Timer" to="CanvasLayer/GlobalInstruction" method="_on_Timer_timeout"]
-
 
 [editable path="TestEnemyMovement"]
 [editable path="TestEnemyMovement/Background"]
