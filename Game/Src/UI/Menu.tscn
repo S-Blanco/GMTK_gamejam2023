@@ -8,11 +8,11 @@ size = 40
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 40
+size = 60
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 40
+size = 60
 font_data = ExtResource( 2 )
 
 [node name="Menu" type="Control"]
@@ -31,6 +31,7 @@ margin_right = 254.5
 margin_bottom = 153.5
 
 [node name="ContinueButton" type="Button" parent="VBoxContainer"]
+visible = false
 margin_right = 509.0
 margin_bottom = 73.0
 size_flags_horizontal = 3
@@ -39,7 +40,6 @@ custom_fonts/font = SubResource( 1 )
 text = "Continue"
 
 [node name="RestartButton" type="Button" parent="VBoxContainer"]
-margin_top = 77.0
 margin_right = 509.0
 margin_bottom = 151.0
 size_flags_horizontal = 3
@@ -48,16 +48,17 @@ custom_fonts/font = SubResource( 2 )
 text = "Restart"
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
-margin_top = 155.0
+visible = false
+margin_top = 103.0
 margin_right = 509.0
-margin_bottom = 229.0
+margin_bottom = 203.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 3 )
 text = "Settings"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
-margin_top = 233.0
+margin_top = 155.0
 margin_right = 509.0
 margin_bottom = 307.0
 size_flags_horizontal = 3
