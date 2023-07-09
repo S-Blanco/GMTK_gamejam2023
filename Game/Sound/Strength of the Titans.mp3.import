@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Strength of the Titans.mp3-269a34f5dfbfc5666dbc329ed00c49fe.mp3str"
+
+[deps]
+
+source_file="res://Sound/Strength of the Titans.mp3"
+dest_files=[ "res://.import/Strength of the Titans.mp3-269a34f5dfbfc5666dbc329ed00c49fe.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

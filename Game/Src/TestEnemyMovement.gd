@@ -224,6 +224,7 @@ func spawn_player():
 
 func _on_timer_timeout():
 	var idx = rng.randi_range(0, 3)
+	GlobalVariables.glory -= 0.05
 	if toggle1.isEmpty:
 		toggle1.texture_id = idx
 		power_slots[0] = idx#powers.keys()[idx]
