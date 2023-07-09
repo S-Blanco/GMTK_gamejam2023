@@ -129,6 +129,10 @@ margin_bottom = 569.0
 rect_rotation = 0.264847
 
 [node name="Green" parent="CanvasLayer/HealthUI" index="1"]
+margin_left = 17.9997
+margin_top = -0.083252
+margin_right = 1938.0
+margin_bottom = 399.917
 rect_scale = Vector2( 0.2, 0.2 )
 
 [node name="Red" parent="CanvasLayer/HealthUI" index="2"]
