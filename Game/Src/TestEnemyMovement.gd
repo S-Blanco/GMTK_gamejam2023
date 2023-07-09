@@ -10,8 +10,6 @@ onready var charPlayer = $Character/AnimationPlayer
 onready var charSprite = $Character/Sprite
 onready var stopScroll = 800
 onready var scrollDist = 0
-onready var isSlowing = false
-onready var isRunning = true
 
 export(PackedScene) var enemyScn = preload("res://Src/Characters/Enemy.tscn")
 export(PackedScene) var playerScn = preload("res://Src/Characters/Character.tscn")
@@ -28,7 +26,7 @@ var curr_scroll_speed
 var init_child_num
 
 # variable used to indicate what action to perform in the game loop
-var game_status = "running"
+enum game_status {RUNNING, FIGHTING, DROPPED}
 
 # For the power ups, 0 means empty
 # number from 1 to 9 will be associated
@@ -50,9 +48,10 @@ var New_enemy
 var children
 var closest_enemy
 var NMX
-
+var current_game_status
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	current_game_status = game_status.RUNNING
 	base_scroll_speed = Bckgnd.scroll_speed
 	base_pixel_speed = base_scroll_speed*Bckgnd.texture.get_size().x
 	curr_pixel_speed = base_pixel_speed
@@ -62,7 +61,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print("process still running")
+
 	scrollDist += delta*base_pixel_speed
 	GlobalVariables.distance = scrollDist
   
@@ -79,7 +78,7 @@ func _process(delta):
 	
 #	Slowing down process
 	children = self.get_children()
-	if game_status == "running" and \
+	if current_game_status == game_status.RUNNING and \
 		len(children)>init_child_num:
 		closest_enemy = children[init_child_num]
 		NMX = closest_enemy.get_global_position().x
@@ -87,14 +86,19 @@ func _process(delta):
 			emit_signal("hero_stopped")
 			# woah_there(children)
 
-	if Input.is_action_pressed("ui_right") and not isRunning:
+	if Input.is_action_pressed("ui_right") and \
+		current_game_status == game_status.FIGHTING:
 		print('let s run again')
+		emit_signal("hero_runs_again")
 #		closest_enemy.die()
 #		yield(children[init_child_num],'died')
 #		yield(children[init_child_num].anim,"finished")
 #		move_again(children,Bckgnd)
 #		$Character.die()
-		
+	if Input.is_action_pressed("ui_left") and \
+		current_game_status == game_status.FIGHTING:
+		print('Your hero died')
+		emit_signal("hero_died")
 
 #func slow_down(closest_enemy,startX,endX,slowTime):
 #	var tween = get_node("Tween")
@@ -125,7 +129,6 @@ func woah_there(children):
 		if not children[i].get("pixel_speed") == null:
 			children[i].pixel_speed = 0.0
 	charPlayer.stop()
-	isRunning = false
 	base_pixel_speed=0
 	
 	
@@ -134,9 +137,8 @@ func move_again(children):
 	for i in range(init_child_num,len(children)):
 		children[i].pixel_speed = base_pixel_speed
 	charPlayer.play()
-	isRunning = true
-	pass
-	
+
+
 func _on_PlayerControls_power1():
 	if power_slots[0] == powers.no_power:
 		power1_toggle.change_to_filled_texture()

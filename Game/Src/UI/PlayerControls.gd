@@ -30,5 +30,3 @@ func _input(ev):
 		elif ev.scancode == GlobalVariables.power2_key:
 			emit_signal("power2")
 			# send signal to buttons in UI?
-		else:
-			print(char(ev.scancode))
