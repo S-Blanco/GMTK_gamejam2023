@@ -1,10 +1,26 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Src/Characters/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Characters/Enemies/Blob.png" type="Texture" id=2]
+[ext_resource path="res://Src/Animations/Disappear.tres" type="Animation" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 340.212
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Enemy" type="KinematicBody2D"]
 scale = Vector2( 0.5, 0.5 )
@@ -18,5 +34,9 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -8, -14 )
 shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Disappear = ExtResource( 3 )
+anims/RESET = SubResource( 3 )
 
 [connection signal="screen_exited" from="Visibility" to="." method="_on_Visibility_screen_exited"]

@@ -5,9 +5,12 @@ extends KinematicBody2D
 # var a = 2
 # var b = "text"
 export(float) var scroll_speed = 0.2 
-onready var pixel_speed = scroll_speed*1920*3
 
+onready var pixel_speed = scroll_speed*1920*3
 onready var stats = $StatsEnemy
+onready var anim = $AnimationPlayer
+
+signal died
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,11 +22,14 @@ func _process(delta):
 	pass
 
 func die():
-#	play_death_animation
-#	self.queue_free()
-#	update_glory(self.glory_bonus)
-	print('Player dead')
-	pass
+#	queue_free()
+	print('Enemy dead')
+	death_animation()
+	emit_signal('died')
+
+#func remove_instance():
+#	queue_free()
+#	pass
 
 func kill():
 #	update_glory(self.glory_malus)
@@ -33,3 +39,6 @@ func _on_Visibility_screen_exited():
 	GlobalVariables.glory = GlobalVariables.glory + 0.03
 	GlobalVariables.damage += 0.03
 	queue_free() # Replace with function body.
+
+func death_animation():
+	anim.play("Disappear")

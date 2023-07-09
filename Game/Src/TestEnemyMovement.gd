@@ -11,6 +11,7 @@ onready var charSprite = $Character/Sprite
 onready var stopScroll = 800
 onready var scrollDist = 0
 onready var isSlowing = false
+onready var isRunning = true
 
 export(PackedScene) var Enemy_scn = preload("res://Src/Characters/Enemy.tscn")
 export(int) var startSlow = 1200
@@ -73,7 +74,13 @@ func _process(delta):
 		NMX = closest_enemy.get_global_position().x
 		if (NMX<stopScroll+delta*curr_pixel_speed) && (NMX>stopScroll-delta*curr_pixel_speed):
 			woah_there(children,Bckgnd)
-
+	
+	if Input.is_action_pressed("ui_right") && not isRunning:
+		print('let s run again')
+		closest_enemy.die()
+#		yield(children[init_child_num],'died')
+#		yield(children[init_child_num].anim,"finished")
+		move_again(children,Bckgnd)
 #func slow_down(closest_enemy,startX,endX,slowTime):
 #	var tween = get_node("Tween")
 #	curr_pixel_speed = 0.0
@@ -101,9 +108,17 @@ func woah_there(children,bckgnd):
 	for i in range(init_child_num,len(children)):
 		children[i].pixel_speed = 0.0
 	charPlayer.stop()
+	isRunning = false
 	pass
 	
-  
+func move_again(children,bckgnd):
+	bckgnd.set_scroll_speed(base_scroll_speed)
+	for i in range(init_child_num,len(children)):
+		children[i].pixel_speed = base_pixel_speed
+	charPlayer.play()
+	isRunning = true
+	pass
+	
 func _on_PlayerControls_power1():
 	if power_slots[0]==0:
 		power1_toggle.change_to_filled_texture()
@@ -120,4 +135,3 @@ func _on_PlayerControls_power2():
 	else:
 		power2_toggle.change_to_empty_texture()
 		power_slots[1] = 0
-

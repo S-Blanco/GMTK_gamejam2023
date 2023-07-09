@@ -12,3 +12,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func death_animation():
+	anim.get_animation("Disappear")
+	anim.play()
+	queue_free()
+	pass
