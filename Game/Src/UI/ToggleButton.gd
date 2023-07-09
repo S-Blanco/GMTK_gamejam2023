@@ -1,21 +1,25 @@
 extends TextureButton
 
-var texture_empty = preload("res://Assets/UI/no_power.png")
-var texture_lightning = preload("res://Assets/UI/lightning_power.png")
-var texture_id = 1
+var textures = [preload("res://Assets/UI/EmptyPwr.png"),preload("res://Assets/UI/LightningPwr.png"),preload("res://Assets/UI/PotionPwr.png"),preload("res://Assets/UI/SlipperyHandPwr.png")]
+export var texture_id = 1
+onready var isEmpty = true
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
 
 func change_to_empty_texture():
-	get_node(".").set_normal_texture(texture_empty)
+	get_node(".").set_normal_texture(textures[0])
+	isEmpty = true
 
 func change_to_filled_texture():
-	get_node(".").set_normal_texture(texture_lightning)
+	get_node(".").set_normal_texture(textures[texture_id])
+	if texture_id != 0:
+		isEmpty = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	change_to_empty_texture()
 	pass
 	
 
