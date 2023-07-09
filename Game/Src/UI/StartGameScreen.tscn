@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Fonts/Sketch Gothic School.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Src/UI/StartGameScreen.gd" type="Script" id=2]
 [ext_resource path="res://Fonts/Enchanted Land.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Objects/Sword-EpicMax.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Objects/Sword-Rust2.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=5]
 size = 175
@@ -94,6 +96,18 @@ margin_bottom = 132.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 4 )
 text = "   Quit   "
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 400, 823 )
+rotation = -0.93026
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 4 )
+
+[node name="Sprite2" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 1645, 902 )
+rotation = 0.93026
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 5 )
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]

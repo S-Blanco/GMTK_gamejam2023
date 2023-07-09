@@ -3,14 +3,20 @@ extends Node2D
 onready var lost_legend = $CanvasLayer/LostLabel_Legend
 onready var lost_rubbish = $CanvasLayer/LostLabel_Rubbish
 onready var label = $CanvasLayer/Label
+onready var sprite = $CanvasLayer/Sprite
 
 
 func _process(delta):
+	
 	if GlobalVariables.glory >= 0.2:
 		lost_legend.visible = true
-	
+		lost_rubbish.visible = false
+		sprite.texture = load('res://Assets/Objects/Sword-EpicMax.png')
+		
 	if GlobalVariables.glory <= 0:
 		lost_rubbish.visible = true
+		lost_legend.visible = false
+		sprite.texture = load('res://Assets/Objects/Sword-Rust2.png')
 		
 	if GlobalVariables.distance >= 0:
 		label.text = "But you've managed to last " +str(int(GlobalVariables.distance/1000)) + " days"
