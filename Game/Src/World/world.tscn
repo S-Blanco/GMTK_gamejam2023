@@ -45,22 +45,6 @@ scale = Vector2( 0.2, 0.2 )
 position = Vector2( 300, 950 )
 rotation = 0.785398
 
-[node name="Sprite_R1" parent="TestEnemyMovement/Character/sword" index="1"]
-position = Vector2( 300, 950 )
-rotation = 0.785398
-
-[node name="Sprite_R2" parent="TestEnemyMovement/Character/sword" index="2"]
-position = Vector2( 300, 950 )
-rotation = 0.785398
-
-[node name="Sprite_L1" parent="TestEnemyMovement/Character/sword" index="3"]
-position = Vector2( 300, 950 )
-rotation = 0.785398
-
-[node name="Sprite_L2" parent="TestEnemyMovement/Character/sword" index="4"]
-position = Vector2( 300, 950 )
-rotation = 0.785398
-
 [node name="Tween" parent="TestEnemyMovement" index="2"]
 __meta__ = {
 "_editor_description_": "In betweener to smooth the animation"
@@ -183,6 +167,7 @@ autostart = true
 [connection signal="hero_died" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_died"]
 [connection signal="hero_runs_again" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_runs_again"]
 [connection signal="hero_starts_fighting" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_starts_fighting"]
+[connection signal="potion" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_potion"]
 [connection signal="power1" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressSpace" method="_on_PlayerControls_power1"]
 [connection signal="power2" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressEnter" method="_on_PlayerControls_power2"]
 [connection signal="timeout" from="Timer" to="CanvasLayer/GlobalInstruction" method="_on_Timer_timeout"]

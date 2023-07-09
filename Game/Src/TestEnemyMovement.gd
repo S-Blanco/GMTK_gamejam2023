@@ -3,6 +3,7 @@ extends Control
 signal hero_starts_fighting
 signal hero_runs_again # Cleme emits this signal when hero won fight
 signal hero_died # Cleme emits this signal when hero lost fight
+signal potion
 
 export(PackedScene) var enemyScn = preload("res://Src/Characters/Enemy.tscn")
 export(PackedScene) var enemyScn2 = preload("res://Src/Characters/Enemy2.tscn")
@@ -119,10 +120,16 @@ func _process(delta):
 				emit_signal("hero_starts_fighting")
 
 	elif current_game_status == game_status.FIGHTING:
-		# DEBUG press right to kill monster
-		if Input.is_action_pressed("ui_right"):
-			print('The enemy is killed, let s run again')
+		GlobalVariables.glory += closest_enemy.stats.max_health
+		GlobalVariables.damage += closest_enemy.stats.glory_win
+		if GlobalVariables.damage < 0.2:
 			emit_signal("hero_runs_again")
+		else :
+			pass
+		# DEBUG press right to kill monster
+#		if Input.is_action_pressed("ui_right"):
+#			print('The enemy is killed, let s run again')
+#			emit_signal("hero_runs_again")
 	#		closest_enemy.die()
 	#		yield(children[init_child_num],'died')
 	#		yield(children[init_child_num].anim,"finished")
@@ -178,16 +185,15 @@ func move_again(children):
 
 
 func _on_PlayerControls_power1():
-	match power_slots[0]:
-		powers.lightning:
-			print('lightning')
-			power1_toggle.change_to_empty_texture()
-		powers.potion:
-			print('potion')
-			power1_toggle.change_to_empty_texture()
-		powers.slippery_hands:
-			print('slippery_hands')
-			power1_toggle.change_to_empty_texture()
+	call_pwr(power_slots[0],powers,power1_toggle)
+#	match power_slots[0]:
+#		powers.lightning:
+#			lightning()
+#			power1_toggle.change_to_empty_texture()
+#		powers.potion:
+#			power1_toggle.change_to_empty_texture()
+#		powers.slippery_hands:
+#			power1_toggle.change_to_empty_texture()
 #	if power_slots[0] == powers.no_power:
 #		power1_toggle.change_to_empty_texture()
 ##		power1_toggle.change_to_filled_texture()
@@ -197,16 +203,15 @@ func _on_PlayerControls_power1():
 #		power_slots[0] = powers.no_power
 
 func _on_PlayerControls_power2():
-	match power_slots[1]:
-		powers.lightning:
-			print('lightning')
-			power2_toggle.change_to_empty_texture()
-		powers.potion:
-			print('potion')
-			power2_toggle.change_to_empty_texture()
-		powers.slippery_hands:
-			print('slippery_hands')
-			power2_toggle.change_to_empty_texture()
+	call_pwr(power_slots[1],powers,power2_toggle)
+#	match power_slots[1]:
+#		powers.lightning:
+#			lightning()
+#			power2_toggle.change_to_empty_texture()
+#		powers.potion:
+#			power2_toggle.change_to_empty_texture()
+#		powers.slippery_hands:
+#			power2_toggle.change_to_empty_texture()
 
 func spawn_player():
 	var newPlayer
@@ -219,7 +224,6 @@ func spawn_player():
 
 func _on_timer_timeout():
 	var idx = rng.randi_range(0, 3)
-	print('timeout',idx)
 	if toggle1.isEmpty:
 		toggle1.texture_id = idx
 		power_slots[0] = idx#powers.keys()[idx]
@@ -230,3 +234,29 @@ func _on_timer_timeout():
 		power_slots[1] = idx#powers.keys()[idx]
 		toggle2.change_to_filled_texture()
 		return
+
+func lightning():
+	if closest_enemy != null:
+		closest_enemy.die()
+
+func slippery_hands():
+	print(GlobalVariables.glory)
+	GlobalVariables.glory -= 0.05
+	print(GlobalVariables.glory)
+	pass
+
+func potion():
+	emit_signal('potion')
+	pass
+
+func call_pwr(slots,pwrList,toggle):
+	match slots:
+		pwrList.lightning:
+			lightning()
+			toggle.change_to_empty_texture()
+		pwrList.potion:
+			potion()
+			toggle.change_to_empty_texture()
+		pwrList.slippery_hands:
+			slippery_hands()
+			toggle.change_to_empty_texture()
