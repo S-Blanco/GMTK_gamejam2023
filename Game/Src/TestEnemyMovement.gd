@@ -60,7 +60,7 @@ func _process(delta):
 	scrollDist += delta*base_pixel_speed
 	GlobalVariables.distance = scrollDist
   
-# Enemy spawn
+# 	Enemy spawn
 #	print(scrollDist,' ',fmod(scrollDist,enemySpawnX),' ',delta*curr_pixel_speed,' ',enemySpawnX-delta*curr_pixel_speed)
 	if (enemySpawnX-delta*curr_pixel_speed<fmod(scrollDist,enemySpawnX)) || (fmod(scrollDist,enemySpawnX)<delta*curr_pixel_speed):
 #		print('should spawn',' ',fmod(scrollDist,enemySpawnX))
@@ -69,13 +69,15 @@ func _process(delta):
 		New_enemy.pixel_speed=curr_pixel_speed
 		add_child(New_enemy)
 	
-# Slowing down process
+# 	Slowing down process
 	children = self.get_children()
 	if len(children)>init_child_num:
 		closest_enemy = children[init_child_num]
 		NMX = closest_enemy.get_global_position().x
 		if (NMX<stopScroll+delta*curr_pixel_speed) && (NMX>stopScroll-delta*curr_pixel_speed):
 			woah_there(children,Bckgnd)
+		
+		
 	
 	if Input.is_action_pressed("ui_right") && not isRunning:
 		print('let s run again')
@@ -85,6 +87,7 @@ func _process(delta):
 #		move_again(children,Bckgnd)
 #		$Character.die()
 		spawn_player(playerSpawnX)
+		
 #func slow_down(closest_enemy,startX,endX,slowTime):
 #	var tween = get_node("Tween")
 #	curr_pixel_speed = 0.0
@@ -115,6 +118,7 @@ func woah_there(children,bckgnd):
 	charPlayer.stop()
 	isRunning = false
 	pass
+
 	
 func move_again(children,bckgnd):
 	bckgnd.set_scroll_speed(base_scroll_speed)
