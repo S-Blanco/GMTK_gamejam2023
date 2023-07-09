@@ -5,13 +5,17 @@ onready var gloryUI = $CanvasLayer/GloryUI
 onready var dist = $CanvasLayer/GloryUI/distance
 onready var healthUI =$CanvasLayer/HealthUI
 onready var red = $CanvasLayer/HealthUI/Red
+
 onready var swordN = $TestEnemyMovement/Character/sword/swordsprite
 onready var swordR1 = $TestEnemyMovement/Character/sword/Sprite_R1
 onready var swordR2 = $TestEnemyMovement/Character/sword/Sprite_R2
 onready var swordL1 = $TestEnemyMovement/Character/sword/Sprite_L1
 onready var swordL2 = $TestEnemyMovement/Character/sword/Sprite_L2
 
+
 onready var TestEnemyMouvement = $TestEnemyMovement
+
+
 
 func _process(_delta):
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Src/UI/GloryUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Src/TestEnemyMovement.tscn" type="PackedScene" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://Src/World/GlobalInstruction.gd" type="Script" id=7]
 [ext_resource path="res://Src/World/PressSpace.gd" type="Script" id=8]
 [ext_resource path="res://Src/World/PressEnter.gd" type="Script" id=9]
-[ext_resource path="res://Src/UI/EndgameScreen.tscn" type="PackedScene" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -78,9 +77,6 @@ margin_left = 245.0
 margin_top = 90.0
 margin_right = 391.0
 margin_bottom = 222.0
-
-[node name="EndgameScreen" parent="." instance=ExtResource( 10 )]
-position = Vector2( 68, 132 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -191,7 +187,9 @@ autostart = true
 [editable path="TestEnemyMovement"]
 [editable path="TestEnemyMovement/Background"]
 [editable path="TestEnemyMovement/Character"]
+
 [editable path="TestEnemyMovement/Character/sword"]
 [editable path="EndgameScreen"]
+
 [editable path="CanvasLayer/GloryUI"]
 [editable path="CanvasLayer/HealthUI"]
