@@ -1,18 +1,71 @@
 extends Node2D
 
-
+var flag = false   #flagging will be done when glory reaches 50 %
 onready var gloryUI = $CanvasLayer/GloryUI
 onready var dist = $CanvasLayer/GloryUI/distance
 onready var healthUI =$CanvasLayer/HealthUI
 onready var red = $CanvasLayer/HealthUI/Red
+onready var swordN = $TestEnemyMovement/Character/sword/swordsprite
+onready var swordR1 = $TestEnemyMovement/Character/sword/Sprite_R1
+onready var swordR2 = $TestEnemyMovement/Character/sword/Sprite_R2
+onready var swordL1 = $TestEnemyMovement/Character/sword/Sprite_L1
+onready var swordL2 = $TestEnemyMovement/Character/sword/Sprite_L2
 
 onready var TestEnemyMouvement = $TestEnemyMovement
 
 func _process(_delta):
 	
 	
-	if GlobalVariables.glory > 0.03:
+	if GlobalVariables.glory > 0.000001 and flag == false:
 		gloryUI.set_glory(GlobalVariables.glory)	
+		
+	if GlobalVariables.glory >= 0.09:
+		flag=true
+		
+	if GlobalVariables.glory > 0.000001 and GlobalVariables.glory < 0.04 and flag == true:
+		gloryUI.set_glory(GlobalVariables.glory)
+		swordN.visible = false
+		swordR1.visible = false
+		swordR2.visible = true
+		swordL1.visible = false
+		swordL2.visible = false
+		
+	
+	elif GlobalVariables.glory > 0.04 and GlobalVariables.glory < 0.08 and flag == true:
+		gloryUI.set_glory(GlobalVariables.glory)
+		swordN.visible = false
+		swordR1.visible = true
+		swordR2.visible = false
+		swordL1.visible = false
+		swordL2.visible = false
+		
+	elif GlobalVariables.glory > 0.08 and GlobalVariables.glory < 0.12 and flag == true:
+		gloryUI.set_glory(GlobalVariables.glory)
+		swordN.visible = true
+		swordR1.visible = false
+		swordR2.visible = false
+		swordL1.visible = false
+		swordL2.visible = false
+		
+	elif GlobalVariables.glory > 0.12 and GlobalVariables.glory < 0.16 and flag == true:
+		gloryUI.set_glory(GlobalVariables.glory)
+		swordN.visible = false
+		swordR1.visible = false
+		swordR2.visible = false
+		swordL1.visible = true
+		swordL2.visible = false
+		
+	elif GlobalVariables.glory > 0.16 and flag == true:
+		gloryUI.set_glory(GlobalVariables.glory)
+		swordN.visible = false
+		swordR1.visible = false
+		swordR2.visible = false
+		swordL1.visible = false
+		swordL2.visible = true
+		
+	
+			
+		
 
 		
 	if GlobalVariables.glory >= gloryUI.max_glory:

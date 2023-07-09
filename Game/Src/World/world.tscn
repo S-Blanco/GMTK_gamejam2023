@@ -39,6 +39,29 @@ script = ExtResource( 3 )
 [node name="Character" parent="TestEnemyMovement" index="1"]
 position = Vector2( 393, 767 )
 
+[node name="sword" parent="TestEnemyMovement/Character" index="1"]
+scale = Vector2( 0.2, 0.2 )
+
+[node name="swordsprite" parent="TestEnemyMovement/Character/sword" index="0"]
+position = Vector2( 300, 950 )
+rotation = 0.785398
+
+[node name="Sprite_R1" parent="TestEnemyMovement/Character/sword" index="1"]
+position = Vector2( 300, 950 )
+rotation = 0.785398
+
+[node name="Sprite_R2" parent="TestEnemyMovement/Character/sword" index="2"]
+position = Vector2( 300, 950 )
+rotation = 0.785398
+
+[node name="Sprite_L1" parent="TestEnemyMovement/Character/sword" index="3"]
+position = Vector2( 300, 950 )
+rotation = 0.785398
+
+[node name="Sprite_L2" parent="TestEnemyMovement/Character/sword" index="4"]
+position = Vector2( 300, 950 )
+rotation = 0.785398
+
 [node name="Tween" parent="TestEnemyMovement" index="2"]
 __meta__ = {
 "_editor_description_": "In betweener to smooth the animation"
@@ -99,10 +122,10 @@ custom_fonts/font = SubResource( 5 )
 text = "Glory"
 
 [node name="HealthUI" parent="CanvasLayer" instance=ExtResource( 4 )]
-margin_left = 68.0
-margin_top = 550.0
-margin_right = 108.0
-margin_bottom = 172.0
+margin_left = -3.99994
+margin_top = 569.0
+margin_right = 5.00006
+margin_bottom = 569.0
 rect_rotation = 0.264847
 
 [node name="Green" parent="CanvasLayer/HealthUI" index="1"]
@@ -161,10 +184,10 @@ autostart = true
 [connection signal="power2" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressEnter" method="_on_PlayerControls_power2"]
 [connection signal="timeout" from="Timer" to="CanvasLayer/GlobalInstruction" method="_on_Timer_timeout"]
 
-
 [editable path="TestEnemyMovement"]
 [editable path="TestEnemyMovement/Background"]
 [editable path="TestEnemyMovement/Character"]
+[editable path="TestEnemyMovement/Character/sword"]
 [editable path="EndgameScreen"]
 [editable path="CanvasLayer/GloryUI"]
 [editable path="CanvasLayer/HealthUI"]
