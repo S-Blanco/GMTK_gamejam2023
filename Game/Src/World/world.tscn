@@ -129,6 +129,10 @@ margin_bottom = 569.0
 rect_rotation = 0.264847
 
 [node name="Green" parent="CanvasLayer/HealthUI" index="1"]
+margin_left = 17.9997
+margin_top = -0.083252
+margin_right = 1938.0
+margin_bottom = 399.917
 rect_scale = Vector2( 0.2, 0.2 )
 
 [node name="Red" parent="CanvasLayer/HealthUI" index="2"]
@@ -179,7 +183,7 @@ autostart = true
 
 [connection signal="hero_died" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_died"]
 [connection signal="hero_runs_again" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_runs_again"]
-[connection signal="hero_stopped" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_stopped"]
+[connection signal="hero_starts_fighting" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_starts_fighting"]
 [connection signal="power1" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressSpace" method="_on_PlayerControls_power1"]
 [connection signal="power2" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressEnter" method="_on_PlayerControls_power2"]
 [connection signal="timeout" from="Timer" to="CanvasLayer/GlobalInstruction" method="_on_Timer_timeout"]
