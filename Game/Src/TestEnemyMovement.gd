@@ -4,6 +4,16 @@ extends Control
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+export(PackedScene) var enemyScn = preload("res://Src/Characters/Enemy.tscn")
+export(PackedScene) var enemyScn2 = preload("res://Src/Characters/Enemy2.tscn")
+export(PackedScene) var enemyScn3 = preload("res://Src/Characters/Enemy3.tscn")
+export(PackedScene) var playerScn = preload("res://Src/Characters/Character.tscn")
+export(int) var startSlow = 1200
+export(int) var enemySpawnX = 2800
+export(int) var spawn_y = 820
+export(float) var slowTime = 1.5
+export(int) var playerSpawnX = -200
+
 #onready var Enemy = $Enemy
 onready var Bckgnd = $Background/TextureRect
 onready var charPlayer = $Character/AnimationPlayer
@@ -13,19 +23,14 @@ onready var scrollDist = 0
 onready var isSlowing = false
 onready var isRunning = true
 
-export(PackedScene) var enemyScn = preload("res://Src/Characters/Enemy.tscn")
-export(PackedScene) var playerScn = preload("res://Src/Characters/Character.tscn")
-export(int) var startSlow = 1200
-export(int) var enemySpawnX = 2800
-export(int) var spawn_y = 820
-export(float) var slowTime = 1.5
-export(int) var playerSpawnX = -200
+onready var enemies = [enemyScn,enemyScn2,enemyScn3]
 
 var base_scroll_speed
 var base_pixel_speed
 var curr_pixel_speed
 var curr_scroll_speed
 var init_child_num
+var rng = RandomNumberGenerator.new()
 
 # For the power ups, 0 means empty
 # number from 1 to 9 will be associated
@@ -42,6 +47,7 @@ onready var power2_toggle = $Power2Toggle
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	rng.randomize()
 	base_scroll_speed = Bckgnd.scroll_speed
 	base_pixel_speed = base_scroll_speed*Bckgnd.texture.get_size().x
 	curr_pixel_speed = base_pixel_speed
@@ -56,6 +62,7 @@ func _process(delta):
 	var children
 	var closest_enemy
 	var NMX
+	var idx
 	
 	scrollDist += delta*base_pixel_speed
 	GlobalVariables.distance = scrollDist
@@ -64,7 +71,8 @@ func _process(delta):
 #	print(scrollDist,' ',fmod(scrollDist,enemySpawnX),' ',delta*curr_pixel_speed,' ',enemySpawnX-delta*curr_pixel_speed)
 	if (enemySpawnX-delta*curr_pixel_speed<fmod(scrollDist,enemySpawnX)) || (fmod(scrollDist,enemySpawnX)<delta*curr_pixel_speed):
 #		print('should spawn',' ',fmod(scrollDist,enemySpawnX))
-		New_enemy = enemyScn.instance()
+		idx=rng.randi_range(0, len(enemies)-1)
+		New_enemy = enemies[idx].instance()
 		New_enemy.set_global_position(Vector2(enemySpawnX,spawn_y))
 		New_enemy.pixel_speed=curr_pixel_speed
 		add_child(New_enemy)
