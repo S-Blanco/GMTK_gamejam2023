@@ -20,6 +20,7 @@ func _on_StartButton_pressed():
 	
 	GlobalVariables.glory = 0.1
 	GlobalVariables.distance = 0
+	GlobalVariables.damage = 0
 	
 	get_tree().change_scene("res://Src/World/world.tscn")
 	
