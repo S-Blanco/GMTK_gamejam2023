@@ -29,7 +29,6 @@ func _process(_delta):
 		swordL1.visible = false
 		swordL2.visible = false
 		
-	
 	elif GlobalVariables.glory > 0.04 and GlobalVariables.glory < 0.08 and flag == true:
 		gloryUI.set_glory(GlobalVariables.glory)
 		swordN.visible = false
@@ -65,7 +64,6 @@ func _process(_delta):
 		
 	if GlobalVariables.glory >= gloryUI.max_glory:
 		get_tree().change_scene("res://Src/UI/EndgameScreen.tscn")
-		
 
 	if GlobalVariables.distance > 0:
 		dist.text = "You've lasted \n" + str( int(GlobalVariables.distance/1000)) + " days"

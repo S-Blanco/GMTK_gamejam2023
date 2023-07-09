@@ -93,8 +93,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print(current_game_status)
-	print(enemy_is_alive)
 	scrollDist += delta*base_pixel_speed
 	GlobalVariables.distance = scrollDist
 
