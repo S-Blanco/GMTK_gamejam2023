@@ -15,7 +15,9 @@ onready var swordL2 = $TestEnemyMovement/Character/sword/Sprite_L2
 
 onready var TestEnemyMouvement = $TestEnemyMovement
 
-
+func _ready():
+#	connect('potion',self,"increase_health",[-0.05])
+	pass
 
 func _process(_delta):
 
@@ -86,7 +88,8 @@ func _on_TestEnemyMovement_hero_runs_again():
 	print("hero starts running again")
 	var enemy_child = TestEnemyMouvement.get_child(TestEnemyMouvement.get_child_count()-1)
 	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.RUNNING
-	enemy_child.die()
+	if enemy_child is KinematicBody2D:
+		enemy_child.die()
 	TestEnemyMouvement.enemy_is_alive=false
 	TestEnemyMouvement.move_again(TestEnemyMouvement.get_children())
 	
@@ -115,3 +118,7 @@ func _on_TestEnemyMovement_hero_died():
 	# need this else pass for it to work. Without it, it tries to delete it before it exists?
 	else:
 		pass
+
+func _on_TestEnemyMovement_potion():
+	print('I m in')
+	$CanvasLayer/HealthUI.set_damage(-0.05)
