@@ -25,12 +25,21 @@ margin_bottom = -605.0
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Power1Toggle" parent="." instance=ExtResource( 5 )]
+margin_left = 545.0
+margin_top = 208.0
+margin_right = 1569.0
+margin_bottom = 1232.0
+rect_min_size = Vector2( 50, 50 )
+stretch_mode = 2
 
 [node name="Power2Toggle" parent="." instance=ExtResource( 5 )]
-margin_left = 907.0
-margin_top = 413.0
-margin_right = 1053.0
-margin_bottom = 545.0
+margin_left = 717.0
+margin_top = 207.0
+margin_right = 1741.0
+margin_bottom = 1231.0
+texture_id = 3
+
+[node name="Timer" type="Timer" parent="."]
 
 [connection signal="focus_entered" from="Character/PlayerControls" to="." method="_on_PlayerControls_focus_entered"]
 [connection signal="power1" from="Character/PlayerControls" to="." method="_on_PlayerControls_power1"]
