@@ -6,12 +6,7 @@ onready var dist = $CanvasLayer/GloryUI/distance
 onready var healthUI =$CanvasLayer/HealthUI
 onready var red = $CanvasLayer/HealthUI/Red
 
-
-
-
-
 onready var TestEnemyMouvement = $TestEnemyMovement
-
 
 func _process(_delta):
 	
@@ -27,10 +22,7 @@ func _process(_delta):
 
 
 	if GlobalVariables.distance > 0:
-		GlobalVariables.distance = GlobalVariables.distance/1000
-		dist.text = "distance =" +str(GlobalVariables.distance)
-
-		
+		dist.text = "You've lasted \n" + str( int(GlobalVariables.distance/1000)) + " days"
 		
 	if GlobalVariables.damage > 0:
 		healthUI.set_damage(GlobalVariables.damage)

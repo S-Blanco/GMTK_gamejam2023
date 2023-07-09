@@ -92,12 +92,12 @@ func _process(delta):
 		(fmod(scrollDist,enemySpawnX)<delta*curr_pixel_speed):
 	    idx=rng.randi_range(0, len(enemies)-1)
 		New_enemy = enemies[idx].instance()
-
 		New_enemy.set_global_position(Vector2(enemySpawnX,spawn_y))
 		New_enemy.pixel_speed=curr_pixel_speed
 		add_child(New_enemy)
 	
 #	Slowing down process
+
 	children = self.get_children()
 	if game_status == "running" and \
 		len(children)>init_child_num:
@@ -106,7 +106,6 @@ func _process(delta):
 		if (NMX<stopScroll+delta*curr_pixel_speed) and (NMX>stopScroll-delta*curr_pixel_speed):
 			emit_signal("hero_stopped")
 			# woah_there(children)
-
 	if Input.is_action_pressed("ui_right") and not isRunning:
 		print('let s run again')
 #		closest_enemy.die()
@@ -114,7 +113,6 @@ func _process(delta):
 #		yield(children[init_child_num].anim,"finished")
 #		move_again(children,Bckgnd)
 #		$Character.die()
-		
 
 #func slow_down(closest_enemy,startX,endX,slowTime):
 #	var tween = get_node("Tween")
@@ -147,6 +145,7 @@ func woah_there(children):
 	charPlayer.stop()
 	isRunning = false
 	base_pixel_speed=0
+
 	
 	
 func move_again(children):
