@@ -6,12 +6,7 @@ onready var dist = $CanvasLayer/GloryUI/distance
 onready var healthUI =$CanvasLayer/HealthUI
 onready var red = $CanvasLayer/HealthUI/Red
 
-
-
-
-
 onready var TestEnemyMouvement = $TestEnemyMovement
-
 
 func _process(_delta):
 	
@@ -27,10 +22,7 @@ func _process(_delta):
 
 
 	if GlobalVariables.distance > 0:
-		GlobalVariables.distance = GlobalVariables.distance/1000
-		dist.text = "distance =" +str(GlobalVariables.distance)
-
-		
+		dist.text = "You've lasted \n" + str( int(GlobalVariables.distance/1000)) + " days"
 		
 	if GlobalVariables.damage > 0:
 		healthUI.set_damage(GlobalVariables.damage)
@@ -48,16 +40,20 @@ func _process(_delta):
 
 
 func _on_TestEnemyMovement_hero_runs_again():
-	print("hero starts runnung again")
-
-
+	print("hero starts running again")
+	var last_child = TestEnemyMouvement.get_child(TestEnemyMouvement.get_child_count()-1)
+	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.RUNNING
+	last_child.die()
+	
 func _on_TestEnemyMovement_hero_stopped():
 	TestEnemyMouvement.woah_there(TestEnemyMouvement.get_children())
 	# Cleme adds the call to start fight here
 	print("hero stops to fight")
-	TestEnemyMouvement.game_status="fighting"
+	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.FIGHTING
 
 func _on_TestEnemyMovement_hero_died():
-	TestEnemyMouvement.get_children("Character").die()
+	var hero_child = TestEnemyMouvement.get_child(1)
+	hero_child.die()
 	TestEnemyMouvement.spawn_player()
 	print("hero died, send a new one")
+	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.DROPPED
