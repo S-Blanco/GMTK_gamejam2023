@@ -11,6 +11,5 @@ scale = Vector2( 4.61765, 3.60694 )
 texture = ExtResource( 1 )
 
 [node name="StatsEnemy" parent="." index="3"]
-max_health = 0.05
-glory_win = 0.003
-glory_lose = -0.003
+glory_win = 7.0
+glory_lose = 7.0

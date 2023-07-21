@@ -9,5 +9,5 @@
 scale = Vector2( 1.58672, 1.57554 )
 texture = ExtResource( 2 )
 
-[node name="StatsEnemy" parent="." index="4"]
-glory_win = 0.003
+[node name="StatsEnemy" parent="." index="3"]
+glory_win = 6.0

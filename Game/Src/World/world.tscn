@@ -40,27 +40,7 @@ script = ExtResource( 3 )
 position = Vector2( 393, 767 )
 
 [node name="sword" parent="TestEnemyMovement/Character" index="1"]
-scale = Vector2( 0.2, 0.2 )
-
-[node name="swordsprite" parent="TestEnemyMovement/Character/sword" index="0"]
-position = Vector2( 300, 950 )
-rotation = 0.785398
-
-[node name="Sprite_R1" parent="TestEnemyMovement/Character/sword" index="1"]
-position = Vector2( 300, 950 )
-rotation = 0.785398
-
-[node name="Sprite_R2" parent="TestEnemyMovement/Character/sword" index="2"]
-position = Vector2( 300, 950 )
-rotation = 0.785398
-
-[node name="Sprite_L1" parent="TestEnemyMovement/Character/sword" index="3"]
-position = Vector2( 300, 950 )
-rotation = 0.785398
-
-[node name="Sprite_L2" parent="TestEnemyMovement/Character/sword" index="4"]
-position = Vector2( 300, 950 )
-rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
 
 [node name="Tween" parent="TestEnemyMovement" index="2"]
 __meta__ = {
@@ -82,48 +62,43 @@ margin_bottom = 222.0
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GloryUI" parent="CanvasLayer" instance=ExtResource( 1 )]
-margin_left = 650.0
-margin_right = 660.0
-margin_bottom = 11.0
-
-[node name="Full" parent="CanvasLayer/GloryUI" index="0"]
-margin_left = 67.0001
-margin_top = 54.0
-margin_right = 1987.0
-margin_bottom = 454.0
-rect_scale = Vector2( 0.2, 0.2 )
-
-[node name="Filling" parent="CanvasLayer/GloryUI" index="1"]
-margin_left = 67.0
-margin_top = 54.0
-margin_right = 1987.0
-margin_bottom = 454.0
-rect_scale = Vector2( 0.03, 0.2 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -90.0
+margin_top = 7.0
+margin_right = -80.0
+margin_bottom = 18.0
 
 [node name="distance" type="Label" parent="CanvasLayer/GloryUI"]
-margin_left = 692.0
-margin_top = 26.0
-margin_right = 1241.0
-margin_bottom = 239.0
+margin_left = 443.0
+margin_top = 10.0
+margin_right = 992.0
+margin_bottom = 223.0
 custom_fonts/font = SubResource( 1 )
 text = "You've lasted 
 0 days"
 align = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/GloryUI"]
-margin_left = -110.0
-margin_top = 48.0
-margin_right = 47.0
-margin_bottom = 127.0
+margin_left = -189.0
+margin_top = 12.0
+margin_right = -32.0
+margin_bottom = 91.0
 custom_fonts/font = SubResource( 5 )
 text = "Glory"
 
 [node name="HealthUI" parent="CanvasLayer" instance=ExtResource( 4 )]
+visible = false
 margin_left = -3.99994
 margin_top = 569.0
 margin_right = 5.00006
 margin_bottom = 569.0
 rect_rotation = 0.264847
+
+[node name="Red" parent="CanvasLayer/HealthUI" index="0"]
+margin_left = 60.0
+margin_right = 1980.0
+rect_scale = Vector2( 1e-05, 0.2 )
 
 [node name="Green" parent="CanvasLayer/HealthUI" index="1"]
 margin_left = 54.9993
@@ -131,13 +106,6 @@ margin_top = -0.254883
 margin_right = 1975.0
 margin_bottom = 399.745
 rect_scale = Vector2( 0.2, 0.2 )
-
-[node name="Red" parent="CanvasLayer/HealthUI" index="2"]
-margin_left = 60.0
-margin_top = 0.0
-margin_right = 1980.0
-margin_bottom = 400.0
-rect_scale = Vector2( 1e-05, 0.2 )
 
 [node name="GlobalInstruction" type="Label" parent="CanvasLayer"]
 anchor_left = 0.5
@@ -185,17 +153,17 @@ autostart = true
 stream = ExtResource( 10 )
 autoplay = true
 
+[connection signal="glory_increased" from="TestEnemyMovement" to="CanvasLayer/GloryUI" method="_on_TestEnemyMovement_glory_increased"]
 [connection signal="hero_died" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_died"]
 [connection signal="hero_runs_again" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_runs_again"]
 [connection signal="hero_starts_fighting" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_starts_fighting"]
 [connection signal="potion" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_potion"]
 [connection signal="power1" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressSpace" method="_on_PlayerControls_power1"]
 [connection signal="power2" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressEnter" method="_on_PlayerControls_power2"]
+[connection signal="glory_changed" from="CanvasLayer/GloryUI" to="TestEnemyMovement/Character/sword" method="_Glory_changed"]
 [connection signal="timeout" from="Timer" to="CanvasLayer/GlobalInstruction" method="_on_Timer_timeout"]
 
 [editable path="TestEnemyMovement"]
 [editable path="TestEnemyMovement/Background"]
 [editable path="TestEnemyMovement/Character"]
-[editable path="TestEnemyMovement/Character/sword"]
-[editable path="CanvasLayer/GloryUI"]
 [editable path="CanvasLayer/HealthUI"]

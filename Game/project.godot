@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "StatsHero",
 "language": "GDScript",
 "path": "res://Src/Characters/StatsHero.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "enemy",
+"language": "GDScript",
+"path": "res://Src/Characters/Enemy.gd"
 } ]
 _global_script_class_icons={
 "StatsEnemy": "",
 "StatsGen": "",
-"StatsHero": ""
+"StatsHero": "",
+"enemy": ""
 }
 
 [application]
@@ -44,7 +50,6 @@ GlobalVariables="*res://global_variables.gd"
 
 window/size/width=1920
 window/size/height=1080
-window/size/fullscreen=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 

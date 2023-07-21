@@ -24,7 +24,7 @@ func _process(delta):
 
 func _on_StartButton_pressed():
 	
-	GlobalVariables.glory = 0.1
+	GlobalVariables.glory = 50
 	GlobalVariables.distance = 0
 	GlobalVariables.damage = 0
 	

@@ -16,56 +16,57 @@ onready var swordL2 = $TestEnemyMovement/Character/sword/Sprite_L2
 onready var TestEnemyMouvement = $TestEnemyMovement
 
 func _ready():
-#	connect('potion',self,"increase_health",[-0.05])
+	$CanvasLayer/GloryUI.set_glory(GlobalVariables.glory)
 	pass
 
 func _process(_delta):
 
 	if GlobalVariables.glory > 0.000001 and flag == false:
-		gloryUI.set_glory(GlobalVariables.glory)	
+#		gloryUI.set_glory(GlobalVariables.glory)	
+		pass
 		
 	if GlobalVariables.glory >= 0.09:
 		flag=true
 		
-	if GlobalVariables.glory > 0.000001 and GlobalVariables.glory < 0.04 and flag == true:
-		gloryUI.set_glory(GlobalVariables.glory)
-		swordN.visible = false
-		swordR1.visible = false
-		swordR2.visible = true
-		swordL1.visible = false
-		swordL2.visible = false
+#	if GlobalVariables.glory > 0.000001 and GlobalVariables.glory < 0.04 and flag == true:
+#		gloryUI.set_glory(GlobalVariables.glory)
+#		swordN.visible = false
+#		swordR1.visible = false
+#		swordR2.visible = true
+#		swordL1.visible = false
+#		swordL2.visible = false
 		
-	elif GlobalVariables.glory > 0.04 and GlobalVariables.glory < 0.08 and flag == true:
-		gloryUI.set_glory(GlobalVariables.glory)
-		swordN.visible = false
-		swordR1.visible = true
-		swordR2.visible = false
-		swordL1.visible = false
-		swordL2.visible = false
+#	elif GlobalVariables.glory > 0.04 and GlobalVariables.glory < 0.08 and flag == true:
+#		gloryUI.set_glory(GlobalVariables.glory)
+#		swordN.visible = false
+#		swordR1.visible = true
+#		swordR2.visible = false
+#		swordL1.visible = false
+#		swordL2.visible = false
 		
-	elif GlobalVariables.glory > 0.08 and GlobalVariables.glory < 0.12 and flag == true:
-		gloryUI.set_glory(GlobalVariables.glory)
-		swordN.visible = true
-		swordR1.visible = false
-		swordR2.visible = false
-		swordL1.visible = false
-		swordL2.visible = false
+#	elif GlobalVariables.glory > 0.08 and GlobalVariables.glory < 0.12 and flag == true:
+#		gloryUI.set_glory(GlobalVariables.glory)
+#		swordN.visible = true
+#		swordR1.visible = false
+#		swordR2.visible = false
+#		swordL1.visible = false
+#		swordL2.visible = false
 		
-	elif GlobalVariables.glory > 0.12 and GlobalVariables.glory < 0.16 and flag == true:
-		gloryUI.set_glory(GlobalVariables.glory)
-		swordN.visible = false
-		swordR1.visible = false
-		swordR2.visible = false
-		swordL1.visible = true
-		swordL2.visible = false
+#	elif GlobalVariables.glory > 0.12 and GlobalVariables.glory < 0.16 and flag == true:
+#		gloryUI.set_glory(GlobalVariables.glory)
+#		swordN.visible = false
+#		swordR1.visible = false
+#		swordR2.visible = false
+#		swordL1.visible = true
+#		swordL2.visible = false
 		
-	elif GlobalVariables.glory > 0.16 and flag == true:
-		gloryUI.set_glory(GlobalVariables.glory)
-		swordN.visible = false
-		swordR1.visible = false
-		swordR2.visible = false
-		swordL1.visible = false
-		swordL2.visible = true
+#	elif GlobalVariables.glory > 0.16 and flag == true:
+#		gloryUI.set_glory(GlobalVariables.glory)
+#		swordN.visible = false
+#		swordR1.visible = false
+#		swordR2.visible = false
+#		swordL1.visible = false
+#		swordL2.visible = true
 		
 		
 	if GlobalVariables.glory >= gloryUI.max_glory:
@@ -74,11 +75,11 @@ func _process(_delta):
 	if GlobalVariables.distance > 0:
 		dist.text = "You've lasted \n" + str( int(GlobalVariables.distance/1000)) + " days"
 		
-	if GlobalVariables.damage > 0:
-		healthUI.set_damage(GlobalVariables.damage)
+#	if GlobalVariables.damage > 0:
+#		healthUI.set_damage(GlobalVariables.damage)
 		
-	if GlobalVariables.damage >= healthUI.max_damage:
-		pass #(here is where we would bring in the next character to pick up the sword)
+#	if GlobalVariables.damage >= healthUI.max_damage:
+#		pass #(here is where we would bring in the next character to pick up the sword)
 		
 	if Input.is_action_pressed("test"):  #Just to demonstrate that if the button is pressed scene changes to end. 
 		GlobalVariables.glory +=0.2
@@ -120,5 +121,5 @@ func _on_TestEnemyMovement_hero_died():
 		pass
 
 func _on_TestEnemyMovement_potion():
-	print('I m in')
-	$CanvasLayer/HealthUI.set_damage(-0.05)
+	print('Implement potion')
+#	$CanvasLayer/HealthUI.set_damage(-0.05)
