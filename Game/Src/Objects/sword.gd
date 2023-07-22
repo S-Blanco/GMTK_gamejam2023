@@ -14,7 +14,7 @@ enum epic {normal,rusty,ruined,epic,legendary}
 func _ready():
 	sprite.set_texture(normalTexture)
 
-func _Glory_changed(value):
+func _on_GloryUI_glory_changed(value):
 	print('Sword Glory changed ',value)
 	if value <= 0.4*max_glory and value > 0.2*max_glory:
 		print('Rusty 1')
@@ -31,4 +31,3 @@ func _Glory_changed(value):
 	elif value > 0.8*max_glory:
 		print('Legendary 2')
 		sprite.set_texture(legendary2Texture)
-	pass # Replace with function body.

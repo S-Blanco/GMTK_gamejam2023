@@ -157,6 +157,7 @@ autoplay = true
 [connection signal="potion" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_potion"]
 [connection signal="power1" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressSpace" method="_on_PlayerControls_power1"]
 [connection signal="power2" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressEnter" method="_on_PlayerControls_power2"]
+[connection signal="glory_changed" from="CanvasLayer/GloryUI" to="TestEnemyMovement/Character/SwordPosition/sword" method="_on_GloryUI_glory_changed"]
 [connection signal="timeout" from="Timer" to="CanvasLayer/GlobalInstruction" method="_on_Timer_timeout"]
 
 [editable path="TestEnemyMovement"]
