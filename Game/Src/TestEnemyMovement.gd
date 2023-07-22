@@ -249,13 +249,9 @@ func lightning():
 
 func slippery_hands():
 	emit_signal("glory_increased",-10)
-	pass
 
 func potion():
 	emit_signal('potion')
-	var playerHealth = characterStats.get_health()
-	print('current health ',playerHealth)
-	characterStats.set_health(playerHealth+10)
 
 func call_pwr(slots,pwrList,toggle):
 	match slots:

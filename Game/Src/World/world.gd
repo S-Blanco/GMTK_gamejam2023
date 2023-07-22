@@ -4,20 +4,12 @@ var flag = false   #flagging will be done when glory reaches 50 %
 onready var gloryUI = $CanvasLayer/GloryUI
 onready var dist = $CanvasLayer/GloryUI/distance
 onready var healthUI =$CanvasLayer/HealthUI
-onready var red = $CanvasLayer/HealthUI/Red
-
-onready var swordN = $TestEnemyMovement/Character/sword/swordsprite
-onready var swordR1 = $TestEnemyMovement/Character/sword/Sprite_R1
-onready var swordR2 = $TestEnemyMovement/Character/sword/Sprite_R2
-onready var swordL1 = $TestEnemyMovement/Character/sword/Sprite_L1
-onready var swordL2 = $TestEnemyMovement/Character/sword/Sprite_L2
-
 
 onready var TestEnemyMouvement = $TestEnemyMovement
+onready var characterStats = $TestEnemyMovement/Character/PlayerStats
 
 func _ready():
 	$CanvasLayer/GloryUI.set_glory(GlobalVariables.glory)
-	pass
 
 func _process(_delta):
 
@@ -36,12 +28,6 @@ func _process(_delta):
 
 	if GlobalVariables.distance > 0:
 		dist.text = "You've lasted \n" + str( int(GlobalVariables.distance/1000)) + " days"
-		
-#	if GlobalVariables.damage > 0:
-#		healthUI.set_damage(GlobalVariables.damage)
-		
-#	if GlobalVariables.damage >= healthUI.max_damage:
-#		pass #(here is where we would bring in the next character to pick up the sword)
 		
 	if Input.is_action_pressed("test"):  #Just to demonstrate that if the button is pressed scene changes to end. 
 		GlobalVariables.glory +=0.2
@@ -83,5 +69,6 @@ func _on_TestEnemyMovement_hero_died():
 		pass
 
 func _on_TestEnemyMovement_potion():
-	print('Implement potion')
+	var playerHealth = characterStats.get_health()
+	characterStats.set_health(playerHealth+10)
 #	$CanvasLayer/HealthUI.set_damage(-0.05)
