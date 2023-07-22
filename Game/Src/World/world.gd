@@ -28,48 +28,10 @@ func _process(_delta):
 	if GlobalVariables.glory >= 0.09:
 		flag=true
 		
-#	if GlobalVariables.glory > 0.000001 and GlobalVariables.glory < 0.04 and flag == true:
-#		gloryUI.set_glory(GlobalVariables.glory)
-#		swordN.visible = false
-#		swordR1.visible = false
-#		swordR2.visible = true
-#		swordL1.visible = false
-#		swordL2.visible = false
-		
-#	elif GlobalVariables.glory > 0.04 and GlobalVariables.glory < 0.08 and flag == true:
-#		gloryUI.set_glory(GlobalVariables.glory)
-#		swordN.visible = false
-#		swordR1.visible = true
-#		swordR2.visible = false
-#		swordL1.visible = false
-#		swordL2.visible = false
-		
-#	elif GlobalVariables.glory > 0.08 and GlobalVariables.glory < 0.12 and flag == true:
-#		gloryUI.set_glory(GlobalVariables.glory)
-#		swordN.visible = true
-#		swordR1.visible = false
-#		swordR2.visible = false
-#		swordL1.visible = false
-#		swordL2.visible = false
-		
-#	elif GlobalVariables.glory > 0.12 and GlobalVariables.glory < 0.16 and flag == true:
-#		gloryUI.set_glory(GlobalVariables.glory)
-#		swordN.visible = false
-#		swordR1.visible = false
-#		swordR2.visible = false
-#		swordL1.visible = true
-#		swordL2.visible = false
-		
-#	elif GlobalVariables.glory > 0.16 and flag == true:
-#		gloryUI.set_glory(GlobalVariables.glory)
-#		swordN.visible = false
-#		swordR1.visible = false
-#		swordR2.visible = false
-#		swordL1.visible = false
-#		swordL2.visible = true
-		
-		
 	if GlobalVariables.glory >= gloryUI.max_glory:
+		get_tree().change_scene("res://Src/UI/EndgameScreen.tscn")
+		
+	if GlobalVariables.glory <= 0:
 		get_tree().change_scene("res://Src/UI/EndgameScreen.tscn")
 
 	if GlobalVariables.distance > 0:

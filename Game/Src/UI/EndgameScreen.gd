@@ -6,13 +6,19 @@ onready var label = $CanvasLayer/Label
 onready var sprite = $CanvasLayer/Sprite
 
 
-func _process(delta):
+func _ready():
+	# Default scenario (the rubbish one)
+	lost_rubbish.visible = true
+	lost_legend.visible = false
+	sprite.texture = load('res://Assets/Objects/Sword-Rust2.png')
 	
-	if GlobalVariables.glory >= 0.2:
+	#Legendary
+	if GlobalVariables.glory >= 100:
 		lost_legend.visible = true
 		lost_rubbish.visible = false
 		sprite.texture = load('res://Assets/Objects/Sword-EpicMax.png')
 		
+	#Rubbish
 	if GlobalVariables.glory <= 0:
 		lost_rubbish.visible = true
 		lost_legend.visible = false
@@ -23,7 +29,6 @@ func _process(delta):
 
 
 func _on_StartButton_pressed():
-	
 	GlobalVariables.glory = 50
 	GlobalVariables.distance = 0
 	GlobalVariables.damage = 0

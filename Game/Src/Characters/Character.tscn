@@ -22,6 +22,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordPosition:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 127, 12 ), Vector2( 135, 75 ), Vector2( 111, 45 ), Vector2( 113, 31 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordPosition/sword:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 25.0, 32.3, 25.0, 25.0 ]
+}
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -37,6 +61,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("SwordPosition:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 127, 12 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SwordPosition/sword:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 25.0 ]
+}
 
 [node name="Character" type="KinematicBody2D"]
 script = ExtResource( 3 )
@@ -46,8 +94,11 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 hframes = 4
 
-[node name="sword" parent="." instance=ExtResource( 1 )]
-position = Vector2( 161, -57 )
+[node name="SwordPosition" type="Position2D" parent="."]
+position = Vector2( 127, 12 )
+
+[node name="sword" parent="SwordPosition" instance=ExtResource( 1 )]
+position = Vector2( 27, -52 )
 rotation = 0.436332
 scale = Vector2( 0.2, 0.2 )
 

@@ -22,6 +22,7 @@ export(PackedScene) var playerScn = preload("res://Src/Characters/Character.tscn
 export(int) var startSlow = 1200
 export(int) var enemySpawnX = 2800
 export(int) var spawn_y = 820
+export(int) var gloryLoss = 10
 export(float) var slowTime = 1.5
 export(int) var PLAYER_SPAWN_X = -200
 export(float) var timerPwr = 2.0
@@ -230,7 +231,7 @@ func spawn_player():
 
 func _on_timer_timeout():
 	var idx = rng.randi_range(0, 3)
-	GlobalVariables.glory -= 0.05
+	emit_signal("glory_increased",-gloryLoss)
 	if toggle1.isEmpty:
 		toggle1.texture_id = idx
 		power_slots[0] = idx#powers.keys()[idx]
