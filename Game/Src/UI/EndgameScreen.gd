@@ -6,14 +6,19 @@ onready var label = $CanvasLayer/Label
 onready var sprite = $CanvasLayer/Sprite
 
 
-func _process(delta):
+func _ready():
+	# Hide stuff first
+	lost_rubbish.visible = false
+	lost_legend.visible = false
 	
-	if GlobalVariables.glory >= 0.2:
+	#Legendary
+	if GlobalVariables.glory >= 100:
 		lost_legend.visible = true
 		lost_rubbish.visible = false
 		sprite.texture = load('res://Assets/Objects/Sword-EpicMax.png')
 		
-	if GlobalVariables.glory <= 0:
+	#Rubbish (weirdly enough, gains some glory while losing..., threshold is not zero but should)
+	if GlobalVariables.glory <= 1:
 		lost_rubbish.visible = true
 		lost_legend.visible = false
 		sprite.texture = load('res://Assets/Objects/Sword-Rust2.png')
@@ -23,11 +28,9 @@ func _process(delta):
 
 
 func _on_StartButton_pressed():
-	
-	GlobalVariables.glory = 0.1
+	GlobalVariables.glory = 50
 	GlobalVariables.distance = 0
 	GlobalVariables.damage = 0
-	
 	get_tree().change_scene("res://Src/World/world.tscn")
 	
 	

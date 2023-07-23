@@ -4,6 +4,7 @@ signal hero_starts_fighting
 signal hero_runs_again # Cleme emits this signal when hero won fight
 signal hero_died # Cleme emits this signal when hero lost fight
 signal potion
+signal glory_increased(value)
 
 export(PackedScene) var enemyScn = preload("res://Src/Characters/Enemy.tscn")
 export(PackedScene) var enemyScn2 = preload("res://Src/Characters/Enemy2.tscn")
@@ -21,6 +22,7 @@ export(PackedScene) var playerScn = preload("res://Src/Characters/Character.tscn
 export(int) var startSlow = 1200
 export(int) var enemySpawnX = 2800
 export(int) var spawn_y = 820
+export(int) var gloryLoss = 10
 export(float) var slowTime = 1.5
 export(int) var PLAYER_SPAWN_X = -200
 export(float) var timerPwr = 2.0
@@ -28,6 +30,7 @@ export(float) var timerPwr = 2.0
 
 #onready var Enemy = $Enemy
 onready var Bckgnd = $Background/TextureRect
+onready var characterStats = $Character/PlayerStats
 onready var charPlayer = $Character/AnimationPlayer
 onready var charSprite = $Character/Sprite
 onready var toggle1 = $Power1Toggle
@@ -72,7 +75,6 @@ var NMX
 var idx
 var current_game_status
 var enemy_is_alive = false
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -120,8 +122,13 @@ func _process(delta):
 				emit_signal("hero_starts_fighting")
 
 	elif current_game_status == game_status.FIGHTING:
-		GlobalVariables.glory += closest_enemy.stats.max_health
-		GlobalVariables.damage += closest_enemy.stats.glory_win
+		emit_signal("glory_increased",closest_enemy.stats.glory_win)
+		var playerHealth = characterStats.get_health()
+		print('current health ',playerHealth)
+		print('attack ',closest_enemy.stats.attack)
+		characterStats.set_health(playerHealth-closest_enemy.stats.attack)
+#		GlobalVariables.glory += closest_enemy.stats.glory_win
+#		GlobalVariables.damage += closest_enemy.stats.attack
 		if GlobalVariables.damage < 0.2:
 			emit_signal("hero_runs_again")
 		else :
@@ -224,7 +231,7 @@ func spawn_player():
 
 func _on_timer_timeout():
 	var idx = rng.randi_range(0, 3)
-	GlobalVariables.glory -= 0.05
+	emit_signal("glory_increased",-gloryLoss)
 	if toggle1.isEmpty:
 		toggle1.texture_id = idx
 		power_slots[0] = idx#powers.keys()[idx]
@@ -241,14 +248,10 @@ func lightning():
 		closest_enemy.die()
 
 func slippery_hands():
-	print(GlobalVariables.glory)
-	GlobalVariables.glory -= 0.05
-	print(GlobalVariables.glory)
-	pass
+	emit_signal("glory_increased",-10)
 
 func potion():
 	emit_signal('potion')
-	pass
 
 func call_pwr(slots,pwrList,toggle):
 	match slots:

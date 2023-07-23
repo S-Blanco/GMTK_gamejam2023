@@ -2,7 +2,7 @@ extends Node
 
 var distance = 0
 
-var glory = 0.1
+var glory = 50
 
 var damage = 0
 

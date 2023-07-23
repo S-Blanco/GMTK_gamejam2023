@@ -5,24 +5,20 @@
 [ext_resource path="res://Assets/UI/yellow_bar.png" type="Texture" id=3]
 
 [node name="GloryUI" type="Control"]
-margin_top = 1.0
 margin_right = 228.0
-margin_bottom = 87.0
+margin_bottom = 86.0
 script = ExtResource( 1 )
 
 [node name="Full" type="TextureRect" parent="."]
-margin_left = 16.0
-margin_top = -6.0
-margin_right = 1936.0
-margin_bottom = 394.0
-rect_scale = Vector2( 0.5, 0.7 )
+margin_right = 480.0
+margin_bottom = 100.0
 texture = ExtResource( 2 )
+expand = true
 stretch_mode = 1
 
 [node name="Filling" type="TextureRect" parent="."]
-margin_left = 29.0
-margin_top = -12.0
-margin_right = 1949.0
-margin_bottom = 388.0
-rect_scale = Vector2( 0.03, 0.7 )
+margin_right = 480.0
+margin_bottom = 100.0
 texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
