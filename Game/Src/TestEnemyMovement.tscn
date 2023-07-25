@@ -39,9 +39,9 @@ margin_right = 1741.0
 margin_bottom = 1231.0
 texture_id = 3
 
-[node name="Timer" type="Timer" parent="."]
-
 [connection signal="focus_entered" from="Character/PlayerControls" to="." method="_on_PlayerControls_focus_entered"]
 [connection signal="power1" from="Character/PlayerControls" to="." method="_on_PlayerControls_power1"]
 [connection signal="power2" from="Character/PlayerControls" to="." method="_on_PlayerControls_power2"]
 [connection signal="script_changed" from="Character/PlayerControls" to="." method="_on_PlayerControls_script_changed"]
+[connection signal="done_filling" from="Power1Toggle" to="." method="_on_Power1Toggle_done_filling"]
+[connection signal="done_filling" from="Power2Toggle" to="." method="_on_Power2Toggle_done_filling"]

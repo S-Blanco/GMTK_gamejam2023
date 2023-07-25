@@ -16,13 +16,12 @@ export(PackedScene) var enemyScn7 = preload("res://Src/Characters/Enemy7.tscn")
 export(PackedScene) var enemyScn8 = preload("res://Src/Characters/Enemy8.tscn")
 export(PackedScene) var enemyScn9 = preload("res://Src/Characters/Enemy9.tscn")
 export(PackedScene) var enemyScn10 = preload("res://Src/Characters/Enemy10.tscn")
-
 export(PackedScene) var playerScn = preload("res://Src/Characters/Character.tscn")
 
 export(int) var startSlow = 1200
 export(int) var enemySpawnX = 2800
 export(int) var spawn_y = 820
-export(int) var gloryLoss = 10
+export(int) var gloryLossRate = 5
 export(float) var slowTime = 1.5
 export(int) var PLAYER_SPAWN_X = -200
 export(float) var timerPwr = 2.0
@@ -46,7 +45,7 @@ var base_pixel_speed
 var curr_pixel_speed
 var curr_scroll_speed
 var init_child_num
-var rng = RandomNumberGenerator.new()
+onready var rng = RandomNumberGenerator.new()
 #var timer
 
 # variable used to indicate what action to perform in the game loop
@@ -80,22 +79,17 @@ var enemy_is_alive = false
 func _ready():
 	current_game_status = game_status.RUNNING
 	rng.randomize()
-
 	base_scroll_speed = Bckgnd.scroll_speed
 	base_pixel_speed = base_scroll_speed*Bckgnd.texture.get_size().x
 	curr_pixel_speed = base_pixel_speed
 	curr_scroll_speed = base_scroll_speed
 	init_child_num = len(self.get_children())
-#	timer = Timer.new()
-	add_child(timer)
-	timer.connect("timeout", self, "_on_timer_timeout")
-	timer.wait_time = timerPwr
-	timer.one_shot = false
-	timer.start()
-	# $Character.connect('died',self,'spawn_player',[playerSpawnX])
+	fill_empty()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# Constant glory loss
+	emit_signal("glory_increased",-gloryLossRate*delta)
 	scrollDist += delta*base_pixel_speed
 	GlobalVariables.distance = scrollDist
 
@@ -181,8 +175,6 @@ func stop_scrolling(children):
 	charPlayer.stop()
 	base_pixel_speed=0
 
-	
-	
 func move_again(children):
 	Bckgnd.set_scroll_speed(base_scroll_speed)
 	base_pixel_speed = base_scroll_speed*Bckgnd.texture.get_size().x
@@ -190,35 +182,13 @@ func move_again(children):
 		children[i].pixel_speed = base_pixel_speed
 	charPlayer.play()
 
-
 func _on_PlayerControls_power1():
+	print('power1 ',power1_toggle.isEmpty)
 	call_pwr(power_slots[0],powers,power1_toggle)
-#	match power_slots[0]:
-#		powers.lightning:
-#			lightning()
-#			power1_toggle.change_to_empty_texture()
-#		powers.potion:
-#			power1_toggle.change_to_empty_texture()
-#		powers.slippery_hands:
-#			power1_toggle.change_to_empty_texture()
-#	if power_slots[0] == powers.no_power:
-#		power1_toggle.change_to_empty_texture()
-##		power1_toggle.change_to_filled_texture()
-#		power_slots[0]= powers.no_power
-#	else:
-#		power1_toggle.change_to_empty_texture()
-#		power_slots[0] = powers.no_power
 
 func _on_PlayerControls_power2():
+	print('power2 ',power2_toggle.isEmpty)
 	call_pwr(power_slots[1],powers,power2_toggle)
-#	match power_slots[1]:
-#		powers.lightning:
-#			lightning()
-#			power2_toggle.change_to_empty_texture()
-#		powers.potion:
-#			power2_toggle.change_to_empty_texture()
-#		powers.slippery_hands:
-#			power2_toggle.change_to_empty_texture()
 
 func spawn_player():
 	var newPlayer
@@ -228,20 +198,6 @@ func spawn_player():
 	var tween = get_node("Tween")
 	tween.interpolate_property(newPlayer, "position:x",PLAYER_SPAWN_X,242,2,Tween.TRANS_CUBIC, Tween.EASE_IN)
 	tween.start()
-
-func _on_timer_timeout():
-	var idx = rng.randi_range(0, 3)
-	emit_signal("glory_increased",-gloryLoss)
-	if toggle1.isEmpty:
-		toggle1.texture_id = idx
-		power_slots[0] = idx#powers.keys()[idx]
-		toggle1.change_to_filled_texture()
-		return
-	if toggle2.isEmpty:
-		toggle2.texture_id = idx
-		power_slots[1] = idx#powers.keys()[idx]
-		toggle2.change_to_filled_texture()
-		return
 
 func lightning():
 	if closest_enemy != null:
@@ -254,13 +210,31 @@ func potion():
 	emit_signal('potion')
 
 func call_pwr(slots,pwrList,toggle):
-	match slots:
-		pwrList.lightning:
-			lightning()
-			toggle.change_to_empty_texture()
-		pwrList.potion:
-			potion()
-			toggle.change_to_empty_texture()
-		pwrList.slippery_hands:
-			slippery_hands()
-			toggle.change_to_empty_texture()
+	if not toggle.isEmpty:
+		match slots:
+			pwrList.lightning:
+				lightning()
+				toggle.change_to_empty_texture()
+			pwrList.potion:
+				potion()
+				toggle.change_to_empty_texture()
+			pwrList.slippery_hands:
+				slippery_hands()
+				toggle.change_to_empty_texture()
+
+func fill_empty() -> void:
+	var idx = rng.randi_range(0, 3)
+	if power1_toggle.isEmpty:
+		power1_toggle.filling(idx)
+		power_slots[0] = idx
+		return
+	elif not (power1_toggle.isEmpty) and power2_toggle.isEmpty:
+		power2_toggle.filling(idx)
+		power_slots[1] = idx
+		return
+
+func _on_Power1Toggle_done_filling():
+	fill_empty()
+
+func _on_Power2Toggle_done_filling():
+	fill_empty()
