@@ -21,7 +21,7 @@ export(PackedScene) var playerScn = preload("res://Src/Characters/Character.tscn
 export(int) var startSlow = 1200
 export(int) var enemySpawnX = 2800
 export(int) var spawn_y = 820
-export(int) var gloryLossRate = 5
+export(int) var gloryLossRate = 2
 export(float) var slowTime = 1.5
 export(int) var PLAYER_SPAWN_X = -200
 export(float) var timerPwr = 2.0
@@ -118,8 +118,6 @@ func _process(delta):
 	elif current_game_status == game_status.FIGHTING:
 		emit_signal("glory_increased",closest_enemy.stats.glory_win)
 		var playerHealth = characterStats.get_health()
-		print('current health ',playerHealth)
-		print('attack ',closest_enemy.stats.attack)
 		characterStats.set_health(playerHealth-closest_enemy.stats.attack)
 #		GlobalVariables.glory += closest_enemy.stats.glory_win
 #		GlobalVariables.damage += closest_enemy.stats.attack
@@ -183,11 +181,9 @@ func move_again(children):
 	charPlayer.play()
 
 func _on_PlayerControls_power1():
-	print('power1 ',power1_toggle.isEmpty)
 	call_pwr(power_slots[0],powers,power1_toggle)
 
 func _on_PlayerControls_power2():
-	print('power2 ',power2_toggle.isEmpty)
 	call_pwr(power_slots[1],powers,power2_toggle)
 
 func spawn_player():

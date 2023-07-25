@@ -14,7 +14,6 @@ signal done_filling
 func change_to_empty_texture() -> void:
 	text_prog.value = 0
 	isEmpty = true
-	print('emptied')
 
 func change_to_filled_texture() -> void:
 	get_node(".").set_normal_texture(textures[texture_id])

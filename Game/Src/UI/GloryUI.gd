@@ -30,5 +30,4 @@ func _on_TestEnemyMovement_glory_increased(value):
 #	print('final glory ',GlobalVariables.glory)
 	if filling != null:
 		filling.rect_size.x = newGlory*glory_unit
-		print(filling.rect_size.x)
 	emit_signal("glory_changed",newGlory)	
