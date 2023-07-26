@@ -68,7 +68,7 @@ func _on_TestEnemyMovement_hero_died():
 	else:
 		pass
 
-func _on_TestEnemyMovement_potion():
-	var playerHealth = characterStats.get_health()
-	characterStats.set_health(playerHealth+10)
-#	$CanvasLayer/HealthUI.set_damage(-0.05)
+#func _on_TestEnemyMovement_potion():
+#	var playerHealth = characterStats.get_health()
+#	characterStats.set_health(playerHealth+10)
+##	$CanvasLayer/HealthUI.set_damage(-0.05)

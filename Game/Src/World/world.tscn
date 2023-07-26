@@ -154,9 +154,10 @@ autoplay = true
 [connection signal="hero_died" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_died"]
 [connection signal="hero_runs_again" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_runs_again"]
 [connection signal="hero_starts_fighting" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_hero_starts_fighting"]
-[connection signal="potion" from="TestEnemyMovement" to="." method="_on_TestEnemyMovement_potion"]
+[connection signal="health_changed" from="TestEnemyMovement/Character/PlayerStats" to="CanvasLayer/HealthUI" method="_on_PlayerStats_health_changed"]
 [connection signal="power1" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressSpace" method="_on_PlayerControls_power1"]
 [connection signal="power2" from="TestEnemyMovement/Character/PlayerControls" to="CanvasLayer/PressEnter" method="_on_PlayerControls_power2"]
+[connection signal="health_increase" from="TestEnemyMovement/Powers" to="CanvasLayer/HealthUI" method="_on_Powers_health_increase"]
 [connection signal="glory_changed" from="CanvasLayer/GloryUI" to="TestEnemyMovement/Character/SwordPosition/sword" method="_on_GloryUI_glory_changed"]
 [connection signal="timeout" from="Timer" to="CanvasLayer/GlobalInstruction" method="_on_Timer_timeout"]
 

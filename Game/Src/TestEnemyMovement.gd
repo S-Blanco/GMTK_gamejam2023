@@ -3,7 +3,6 @@ extends Control
 signal hero_starts_fighting
 signal hero_runs_again # Cleme emits this signal when hero won fight
 signal hero_died # Cleme emits this signal when hero lost fight
-signal potion
 signal glory_increased(value)
 
 export(PackedScene) var enemyScn = preload("res://Src/Characters/Enemy.tscn")
@@ -34,9 +33,10 @@ onready var charPlayer = $Character/AnimationPlayer
 onready var charSprite = $Character/Sprite
 onready var toggle1 = $Power1Toggle
 onready var toggle2 = $Power2Toggle
+onready var toggles = [toggle1,toggle2]
 onready var stopScroll = 800
 onready var scrollDist = 0
-onready var timer = $Timer
+onready var powersNode = $Powers
 
 onready var enemies = [enemyScn,enemyScn2,enemyScn3,enemyScn4,enemyScn5,enemyScn6,enemyScn7,enemyScn8,enemyScn9,enemyScn10]
 
@@ -84,7 +84,7 @@ func _ready():
 	curr_pixel_speed = base_pixel_speed
 	curr_scroll_speed = base_scroll_speed
 	init_child_num = len(self.get_children())
-	fill_empty()
+	powersNode.fill_empty(toggles,power_slots)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -181,10 +181,10 @@ func move_again(children):
 	charPlayer.play()
 
 func _on_PlayerControls_power1():
-	call_pwr(power_slots[0],powers,power1_toggle)
+	powersNode.call_pwr(power_slots[0],powers,power1_toggle,{'enemy':closest_enemy,'stats':characterStats})
 
 func _on_PlayerControls_power2():
-	call_pwr(power_slots[1],powers,power2_toggle)
+	powersNode.call_pwr(power_slots[1],powers,power2_toggle,{'enemy':closest_enemy,'stats':characterStats})
 
 func spawn_player():
 	var newPlayer
@@ -195,42 +195,11 @@ func spawn_player():
 	tween.interpolate_property(newPlayer, "position:x",PLAYER_SPAWN_X,242,2,Tween.TRANS_CUBIC, Tween.EASE_IN)
 	tween.start()
 
-func lightning():
-	if closest_enemy != null:
-		closest_enemy.die()
-
-func slippery_hands():
-	emit_signal("glory_increased",-10)
-
-func potion():
-	emit_signal('potion')
-
-func call_pwr(slots,pwrList,toggle):
-	if not toggle.isEmpty:
-		match slots:
-			pwrList.lightning:
-				lightning()
-				toggle.change_to_empty_texture()
-			pwrList.potion:
-				potion()
-				toggle.change_to_empty_texture()
-			pwrList.slippery_hands:
-				slippery_hands()
-				toggle.change_to_empty_texture()
-
-func fill_empty() -> void:
-	var idx = rng.randi_range(0, 3)
-	if power1_toggle.isEmpty:
-		power1_toggle.filling(idx)
-		power_slots[0] = idx
-		return
-	elif not (power1_toggle.isEmpty) and power2_toggle.isEmpty:
-		power2_toggle.filling(idx)
-		power_slots[1] = idx
-		return
-
 func _on_Power1Toggle_done_filling():
-	fill_empty()
+	powersNode.fill_empty(toggles,power_slots)
 
 func _on_Power2Toggle_done_filling():
-	fill_empty()
+	powersNode.fill_empty(toggles,power_slots)
+
+func _on_Powers_glory_increment(value) -> void:
+	emit_signal("glory_increased",value)
