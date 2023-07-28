@@ -46,7 +46,6 @@ var curr_pixel_speed
 var curr_scroll_speed
 var init_child_num
 onready var rng = RandomNumberGenerator.new()
-#var timer
 
 # variable used to indicate what action to perform in the game loop
 enum game_status {RUNNING, FIGHTING, DROPPED}
