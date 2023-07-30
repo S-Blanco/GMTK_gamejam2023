@@ -10,8 +10,8 @@ signal glory_increment(value)
 signal health_increase(value)
 
 func _ready() -> void:
-	randomize()
 	rng = RandomNumberGenerator.new()
+	rng.randomize()
 
 func call_pwr(slots,pwrList,toggle,otherArgs: Dictionary = {'stats':null,'enemy':null}):
 	if not toggle.isEmpty:
