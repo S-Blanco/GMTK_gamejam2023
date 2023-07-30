@@ -67,8 +67,3 @@ func _on_TestEnemyMovement_hero_died():
 	# need this else pass for it to work. Without it, it tries to delete it before it exists?
 	else:
 		pass
-
-func _on_TestEnemyMovement_potion():
-	var playerHealth = characterStats.get_health()
-	characterStats.set_health(playerHealth+10)
-#	$CanvasLayer/HealthUI.set_damage(-0.05)

@@ -3,7 +3,6 @@ extends Control
 signal hero_starts_fighting
 signal hero_runs_again # Cleme emits this signal when hero won fight
 signal hero_died # Cleme emits this signal when hero lost fight
-signal potion
 signal glory_increased(value)
 
 export(PackedScene) var enemyScn = preload("res://Src/Characters/Enemy.tscn")
@@ -16,13 +15,12 @@ export(PackedScene) var enemyScn7 = preload("res://Src/Characters/Enemy7.tscn")
 export(PackedScene) var enemyScn8 = preload("res://Src/Characters/Enemy8.tscn")
 export(PackedScene) var enemyScn9 = preload("res://Src/Characters/Enemy9.tscn")
 export(PackedScene) var enemyScn10 = preload("res://Src/Characters/Enemy10.tscn")
-
 export(PackedScene) var playerScn = preload("res://Src/Characters/Character.tscn")
 
 export(int) var startSlow = 1200
 export(int) var enemySpawnX = 2800
 export(int) var spawn_y = 820
-export(int) var gloryLoss = 10
+export(int) var gloryLossRate = 2
 export(float) var slowTime = 1.5
 export(int) var PLAYER_SPAWN_X = -200
 export(float) var timerPwr = 2.0
@@ -35,9 +33,10 @@ onready var charPlayer = $Character/AnimationPlayer
 onready var charSprite = $Character/Sprite
 onready var toggle1 = $Power1Toggle
 onready var toggle2 = $Power2Toggle
+onready var toggles = [toggle1,toggle2]
 onready var stopScroll = 800
 onready var scrollDist = 0
-onready var timer = $Timer
+onready var powersNode = $Powers
 
 onready var enemies = [enemyScn,enemyScn2,enemyScn3,enemyScn4,enemyScn5,enemyScn6,enemyScn7,enemyScn8,enemyScn9,enemyScn10]
 
@@ -46,8 +45,7 @@ var base_pixel_speed
 var curr_pixel_speed
 var curr_scroll_speed
 var init_child_num
-var rng = RandomNumberGenerator.new()
-#var timer
+onready var rng = RandomNumberGenerator.new()
 
 # variable used to indicate what action to perform in the game loop
 enum game_status {RUNNING, FIGHTING, DROPPED}
@@ -80,22 +78,17 @@ var enemy_is_alive = false
 func _ready():
 	current_game_status = game_status.RUNNING
 	rng.randomize()
-
 	base_scroll_speed = Bckgnd.scroll_speed
 	base_pixel_speed = base_scroll_speed*Bckgnd.texture.get_size().x
 	curr_pixel_speed = base_pixel_speed
 	curr_scroll_speed = base_scroll_speed
 	init_child_num = len(self.get_children())
-#	timer = Timer.new()
-	add_child(timer)
-	timer.connect("timeout", self, "_on_timer_timeout")
-	timer.wait_time = timerPwr
-	timer.one_shot = false
-	timer.start()
-	# $Character.connect('died',self,'spawn_player',[playerSpawnX])
+	powersNode.fill_empty(toggles,power_slots)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# Constant glory loss
+	emit_signal("glory_increased",-gloryLossRate*delta)
 	scrollDist += delta*base_pixel_speed
 	GlobalVariables.distance = scrollDist
 
@@ -124,8 +117,6 @@ func _process(delta):
 	elif current_game_status == game_status.FIGHTING:
 		emit_signal("glory_increased",closest_enemy.stats.glory_win)
 		var playerHealth = characterStats.get_health()
-		print('current health ',playerHealth)
-		print('attack ',closest_enemy.stats.attack)
 		characterStats.set_health(playerHealth-closest_enemy.stats.attack)
 #		GlobalVariables.glory += closest_enemy.stats.glory_win
 #		GlobalVariables.damage += closest_enemy.stats.attack
@@ -181,8 +172,6 @@ func stop_scrolling(children):
 	charPlayer.stop()
 	base_pixel_speed=0
 
-	
-	
 func move_again(children):
 	Bckgnd.set_scroll_speed(base_scroll_speed)
 	base_pixel_speed = base_scroll_speed*Bckgnd.texture.get_size().x
@@ -190,35 +179,11 @@ func move_again(children):
 		children[i].pixel_speed = base_pixel_speed
 	charPlayer.play()
 
-
 func _on_PlayerControls_power1():
-	call_pwr(power_slots[0],powers,power1_toggle)
-#	match power_slots[0]:
-#		powers.lightning:
-#			lightning()
-#			power1_toggle.change_to_empty_texture()
-#		powers.potion:
-#			power1_toggle.change_to_empty_texture()
-#		powers.slippery_hands:
-#			power1_toggle.change_to_empty_texture()
-#	if power_slots[0] == powers.no_power:
-#		power1_toggle.change_to_empty_texture()
-##		power1_toggle.change_to_filled_texture()
-#		power_slots[0]= powers.no_power
-#	else:
-#		power1_toggle.change_to_empty_texture()
-#		power_slots[0] = powers.no_power
+	powersNode.call_pwr(power_slots[0],powers,power1_toggle,{'enemy':closest_enemy,'stats':characterStats})
 
 func _on_PlayerControls_power2():
-	call_pwr(power_slots[1],powers,power2_toggle)
-#	match power_slots[1]:
-#		powers.lightning:
-#			lightning()
-#			power2_toggle.change_to_empty_texture()
-#		powers.potion:
-#			power2_toggle.change_to_empty_texture()
-#		powers.slippery_hands:
-#			power2_toggle.change_to_empty_texture()
+	powersNode.call_pwr(power_slots[1],powers,power2_toggle,{'enemy':closest_enemy,'stats':characterStats})
 
 func spawn_player():
 	var newPlayer
@@ -229,38 +194,11 @@ func spawn_player():
 	tween.interpolate_property(newPlayer, "position:x",PLAYER_SPAWN_X,242,2,Tween.TRANS_CUBIC, Tween.EASE_IN)
 	tween.start()
 
-func _on_timer_timeout():
-	var idx = rng.randi_range(0, 3)
-	emit_signal("glory_increased",-gloryLoss)
-	if toggle1.isEmpty:
-		toggle1.texture_id = idx
-		power_slots[0] = idx#powers.keys()[idx]
-		toggle1.change_to_filled_texture()
-		return
-	if toggle2.isEmpty:
-		toggle2.texture_id = idx
-		power_slots[1] = idx#powers.keys()[idx]
-		toggle2.change_to_filled_texture()
-		return
+func _on_Power1Toggle_done_filling():
+	powersNode.fill_empty(toggles,power_slots)
 
-func lightning():
-	if closest_enemy != null:
-		closest_enemy.die()
+func _on_Power2Toggle_done_filling():
+	powersNode.fill_empty(toggles,power_slots)
 
-func slippery_hands():
-	emit_signal("glory_increased",-10)
-
-func potion():
-	emit_signal('potion')
-
-func call_pwr(slots,pwrList,toggle):
-	match slots:
-		pwrList.lightning:
-			lightning()
-			toggle.change_to_empty_texture()
-		pwrList.potion:
-			potion()
-			toggle.change_to_empty_texture()
-		pwrList.slippery_hands:
-			slippery_hands()
-			toggle.change_to_empty_texture()
+func _on_Powers_glory_increment(value) -> void:
+	emit_signal("glory_increased",value)
