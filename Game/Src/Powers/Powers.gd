@@ -36,3 +36,8 @@ func fill_empty(toggles,slots) -> void:
 		toggles[1].filling(idx)
 		slots[1] = idx
 		return
+
+
+func _on_SlipperyHandsPower_glory_increment(value) -> void:
+	#Relay the signal from SlipperyHandPow node
+	emit_signal("glory_increment",value)

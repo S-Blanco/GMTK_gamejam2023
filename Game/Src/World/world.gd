@@ -34,7 +34,7 @@ func _process(_delta):
 		
 
 func _on_TestEnemyMovement_hero_runs_again():
-	print("hero starts running again")
+#	print("hero starts running again")
 	var enemy_child = TestEnemyMouvement.get_child(TestEnemyMouvement.get_child_count()-1)
 	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.RUNNING
 	if enemy_child is KinematicBody2D:
@@ -45,7 +45,7 @@ func _on_TestEnemyMovement_hero_runs_again():
 func _on_TestEnemyMovement_hero_starts_fighting():
 	TestEnemyMouvement.stop_scrolling(TestEnemyMouvement.get_children())
 	# Cleme adds the call to start fight here
-	print("hero stops to fight")
+#	print("hero stops to fight")
 	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.FIGHTING
 
 func _on_TestEnemyMovement_hero_died():
@@ -62,7 +62,7 @@ func _on_TestEnemyMovement_hero_died():
 		print(last_child.name)
 		TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.RUNNING
 		GlobalVariables.damage = 0
-		print("hero died, send a new one")
+#		print("hero died, send a new one")
 	#	TestEnemyMouvement.current_game_status=TestEnemyMouvement.game_status.DROPPED
 	# need this else pass for it to work. Without it, it tries to delete it before it exists?
 	else:
