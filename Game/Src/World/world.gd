@@ -8,7 +8,7 @@ onready var healthUI =$CanvasLayer/HealthUI
 onready var TestEnemyMouvement = $TestEnemyMovement
 onready var characterStats = $TestEnemyMovement/Character/PlayerStats
 
-signal change_scene_to(path)
+signal change_scene_to(path,transitionName)
 
 func _ready():
 	$CanvasLayer/GloryUI.set_glory(GlobalVariables.glory)
@@ -23,10 +23,10 @@ func _process(_delta):
 		flag=true
 		
 	if GlobalVariables.glory >= gloryUI.max_glory:
-		emit_signal("change_scene_to","res://Src/UI/EndgameScreen.tscn")
+		emit_signal("change_scene_to","res://Src/UI/EndgameScreen.tscn",'Dissolve')
 		
 	if GlobalVariables.glory <= 0:
-		emit_signal("change_scene_to","res://Src/UI/EndgameScreen.tscn")
+		emit_signal("change_scene_to","res://Src/UI/EndgameScreen.tscn",'Dissolve')
 
 	if GlobalVariables.distance > 0:
 		dist.text = "You've lasted \n" + str( int(GlobalVariables.distance/1000)) + " days"

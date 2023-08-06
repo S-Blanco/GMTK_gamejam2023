@@ -12,13 +12,13 @@ func _ready() -> void:
 	$CurrentScene.add_child(currentScene.instance())
 	reconnect($CurrentScene,'change_scene_to','do_transition')
 
-func do_transition(path_to_scene:String)->void:
+func do_transition(path_to_scene:String,anim_name:String)->void:
 	nextScene = load(path_to_scene).instance()
-	$TransitionManager.play_animation("FadeOut")
+	$TransitionManager.play_animation(anim_name+"Out")
 	yield($TransitionManager/AnimationPlayer,'animation_finished') # I would like to yield the signal emitted by transition manager itself instead
 	_change_scene_to($CurrentScene,nextScene)
 	yield(self,'changed_scene')
-	$TransitionManager.play_animation("FadeIn")
+	$TransitionManager.play_animation(anim_name+"In")
 	yield($TransitionManager/AnimationPlayer,'animation_finished') # I would like to yield the signal emitted by transition manager itself instead
 
 func _change_scene_to(currentScene:Node,nextScene:Node)->void:

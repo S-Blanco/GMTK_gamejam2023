@@ -4,7 +4,7 @@ signal change_scene_to(path)
 
 func _on_StartButton_pressed():
 	# TODO : reset glory and distance in global_var
-	emit_signal("change_scene_to","res://Src/World/world.tscn")
+	emit_signal("change_scene_to","res://Src/World/world.tscn",'Dissolve')
 
 func _on_QuitButton_pressed():
 	get_tree().quit()
