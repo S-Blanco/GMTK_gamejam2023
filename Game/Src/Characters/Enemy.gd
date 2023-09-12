@@ -23,7 +23,6 @@ func _process(delta):
 
 func die():
 #	queue_free()
-	print('Enemy dead')
 	death_animation()
 	emit_signal('died')
 

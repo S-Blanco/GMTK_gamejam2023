@@ -10,8 +10,8 @@ signal glory_increment(value)
 signal health_increase(value)
 
 func _ready() -> void:
-	randomize()
 	rng = RandomNumberGenerator.new()
+	rng.randomize()
 
 func call_pwr(slots,pwrList,toggle,otherArgs: Dictionary = {'stats':null,'enemy':null}):
 	if not toggle.isEmpty:
@@ -36,3 +36,8 @@ func fill_empty(toggles,slots) -> void:
 		toggles[1].filling(idx)
 		slots[1] = idx
 		return
+
+
+func _on_SlipperyHandsPower_glory_increment(value) -> void:
+	#Relay the signal from SlipperyHandPow node
+	emit_signal("glory_increment",value)

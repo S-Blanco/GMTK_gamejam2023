@@ -73,6 +73,7 @@ var NMX
 var idx
 var current_game_status
 var enemy_is_alive = false
+var uv_shift = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -87,10 +88,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	# Constant glory loss
-	emit_signal("glory_increased",-gloryLossRate*delta)
 	scrollDist += delta*base_pixel_speed
 	GlobalVariables.distance = scrollDist
+	uv_shift = fmod(scrollDist/Bckgnd.texture.get_size().x,1)
+	Bckgnd.material.set_shader_param('uv_shift',uv_shift)
+	# Constant glory loss
+	emit_signal("glory_increased",-gloryLossRate*delta)
 
 #	Slowing down process
 	children = self.get_children()

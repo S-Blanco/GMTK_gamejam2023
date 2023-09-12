@@ -13,3 +13,5 @@ script = ExtResource( 4 )
 [node name="PotionPower" parent="." instance=ExtResource( 2 )]
 
 [node name="SlipperyHandsPower" parent="." instance=ExtResource( 3 )]
+
+[connection signal="glory_increment" from="SlipperyHandsPower" to="." method="_on_SlipperyHandsPower_glory_increment"]
